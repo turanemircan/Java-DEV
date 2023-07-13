@@ -62,7 +62,7 @@ SELECT * FROM adresler WHERE sehir='Konya' AND adres_id='10002';
 --sehiri 'Konya' veya 'Bursa' olan adreslerin cadde ve sehir bilgilerini getir.
 SELECT cadde,sehir FROM adresler WHERE sehir='Konya' OR sehir='Bursa';
 
---15-DELETE FROM .. WHERE.. komutu:koşula uyan kayıtları tablodan siler
+--15-DELETE FROM .. WHERE.. komutu:koşula uyan kayıtları tablodan siler-DML
 
 CREATE TABLE ogrenciler1
 (
@@ -305,6 +305,8 @@ SELECT * FROM workers;
 SELECT calisan_id AS id,calisan_isim AS isim FROM workers;
 
 SELECT calisan_id AS id,calisan_isim ||' - '||calisan_dogdugu_sehir AS isim_sehir FROM workers;
+
+SELECT * FROM workers AS calisanlar;-- w
 
 
 
