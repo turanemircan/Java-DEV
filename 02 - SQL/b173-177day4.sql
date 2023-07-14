@@ -27,6 +27,21 @@ WHERE maas=(SELECT MAX(maas)
 --Interview Question:calisanlar3 tablosunda ikinci en yüksek maaşı gösteriniz.ÖDEV
 --(en yüksek maaştan az ama sütündaki diğer maaşlardan en yükseği)
 
+SELECT MAX(maas)
+FROM calisanlar3
+WHERE maas<(SELECT MAX(maas)
+            FROM calisanlar3)
+
+--calisanlar3 tablosunda ikinci en yüksek maaşı alan çalışanları gösteriniz.
+SELECT *
+FROM calisanlar3
+WHERE maas=(SELECT MAX(maas)
+			FROM calisanlar3
+			WHERE maas<(SELECT MAX(maas)
+            			FROM calisanlar3))
+
+
+
 --calisanlar3 tablosunda max veya min maaşı alan çalışanların
 -- tüm fieldlarını gösteriniz.
 
@@ -68,7 +83,8 @@ WHERE isyeri IN (SELECT marka_isim FROM markalar WHERE calisan_sayisi>15000)
 
 -- Her markanin id’sini, ismini ve toplam kaç şehirde bulunduğunu listeleyen bir SORGU yaziniz.
 
-SELECT marka_id,marka_isim,(SELECT COUNT(DISTINCT sehir) FROM calisanlar3
+SELECT marka_id,marka_isim,(SELECT COUNT(DISTINCT sehir) 
+							FROM calisanlar3
 						    WHERE isyeri=marka_isim) AS sehir_sayisi
 FROM markalar;
 
@@ -152,6 +168,26 @@ WHERE EXISTS (SELECT urun_isim FROM nisan WHERE nisan.urun_isim=mart.urun_isim )
 SELECT urun_id,musteri_isim,urun_isim
 FROM mart AS m
 WHERE EXISTS (SELECT urun_isim FROM nisan AS n WHERE n.urun_isim=m.urun_isim )--correlated subquery
+
+---Her iki ayda birden satılan ürünlerin URUN_ISIM'lerini ve bu ürünleri
+--NİSAN ayında satın alan MUSTERI_ISIM'lerini listeleyen bir sorgu yazınız
+
+SELECT urun_isim, musteri_isim
+FROM nisan AS n
+WHERE EXISTS (SELECT urun_isim FROM mart AS m WHERE m.urun_isim=n.urun_isim )
+
+
+--Martta satılıp Nisanda satilmayan ürünlerin URUN_ISIM'lerini ve bu ürünleri
+--MART ayında satın alan MUSTERI_ISIM'lerini listeleyen bir sorgu yazınız.
+
+SELECT urun_isim,musteri_isim
+FROM mart 
+WHERE NOT EXISTS (SELECT urun_isim FROM nisan WHERE nisan.urun_isim=mart.urun_isim )
+
+
+
+
+
 
 
 
