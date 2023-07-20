@@ -41,8 +41,14 @@ public class ExecuteQuery01 {
                     "--"+rs3.getInt("salary")+"--"+rs3.getString("prog_lang"));
         }
 
-        System.out.println("------------ÖRNEK4-------------");
+        System.out.println("------------ÖRNEK 4-------------");
         //ÖRNEK 4:Puanı bölümlerin taban puanlarının ortalamasından yüksek olan öğrencilerin isim ve puanlarını listeleyiniz
+        String query4="select isim,puan from ogrenciler where puan>(select avg(taban_puani) from bolumler)";
+        ResultSet rs4= st.executeQuery(query4);
+
+        while(rs4.next()){
+            System.out.println(rs4.getString("isim")+"--"+rs4.getInt("puan"));
+        }
 
     st.close();
     con.close();
