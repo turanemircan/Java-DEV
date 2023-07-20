@@ -9,6 +9,7 @@ public class Transaction01 {
     public static void main(String[] args) throws Exception {
         Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/jdbc_db", "dev_user", "password");
         Statement st = con.createStatement();
+
         //hesap 1234 ten hesap no:5678  e 1000 para transfer olsun
         String sql="update hesaplar set bakiye=bakiye+? where hesap_no=?";
         PreparedStatement prst=con.prepareStatement(sql);
