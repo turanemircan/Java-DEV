@@ -53,6 +53,8 @@ public class Runner {
                     break;
                 case 3:
                     //Güncelle
+                    id=getId(inp);
+                    service.updateStudent(id);
                     break;
                 case 4:
                     //sil
@@ -61,9 +63,17 @@ public class Runner {
                     break;
                 case 5:
                     //öğrenci bul
+                    id=getId(inp);
+                    Student student=service.getStudentById(id);
+                    if(student==null){
+                        System.out.println("Öğrenci bulunamadı...");
+                    }else {
+                        System.out.println(student);
+                    }
                     break;
                 case 6:
                     //ad veya soyad arama
+                    service.listStudentsByNameOrLastName();
                     break;
                 case 0:
                     System.out.println("İyi günler....");
