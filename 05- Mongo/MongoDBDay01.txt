@@ -1,0 +1,115 @@
+DAY1
+1//ekranı temizle
+
+cls
+
+2//shop isminde bir DB oluştur
+
+use shop
+
+3// hangi db deyim
+
+db
+
+4//tüm db leri görmek istersek
+
+show dbs
+
+içi boş olan db leri göstermez
+
+5//shop içinde customers collectionı oluşturalım
+
+db.createCollection("customers")
+
+6//Tüm collectionlari listele
+
+db.getCollectionNames()
+
+show collections
+
+7//customers collectionını sil
+
+db.customers.drop()
+
+8// shop database ni sil
+
+db.dropDatabase()
+
+9//yeni bir DB(products) ve içinde bir collection(electronics) oluşturalım
+
+use products
+db.createCollection("electronics")
+
+10//collectiona document insert etme
+
+db.electronics.insertOne({"name":"TV","price":230})
+
+Not: collection oluşturmadan,document insertOne kullanarak doğrudan eklenebilir
+
+Not:Çift veya tek tırnak kullanılabilir
+
+11//Birden fazla document ekleme
+
+db.electronics.insertMany([{"name":"ipod","price":110},{"name":"iphone14"},{"name":"radio","price":53,"tax":10}])
+
+Not:birden fazla document dizi[] içinde edklenir.
+
+12//Birden fazla document ekleme
+db.electronics.insert({name:"iron",price:75})
+
+db.electronics.insert([{"name":"iron","price":75},{"name":"radio","tax":8}])
+
+insert:deprecate method
+
+13//tüm documentları listele
+
+db.electronics.find()
+
+//json formatında düzgün gözükmesi için mongosh ta farketmeyecek ama diğer editörlerde bu formatta olması için pretty komutu kullanılır
+db.electronics.find().pretty()
+
+14// ilk 2 documentı listeleyin
+
+db.electronics.find().limit(2)
+
+15//sadece 3. documentı görelim
+
+db.electronics.find().skip(2).limit(1)
+
+16//5.documentten itibaren ilk 2 documentı göster
+
+db.electronics.find().skip(4).limit(2)
+
+17//name fieldı TV olanları gösterelim
+
+db.electronics.find({"name":"TV"})
+
+***find({filter})
+
+18//name:TV olan ve price 230 olan documentı listeleyin
+
+
+db.electronics.find({$and:[{"name":"TV"},{"price":230}]})
+
+19//name:TV olan veya price 230 olan documentı listeleyin
+
+20//sadece belirli field ları listelemek istersek
+//radio ların sadece priceleri görüntülensin
+
+db.electronics.find({"name":"radio"},{"price":1})
+
+Not:find({filter},{projection})
+
+defaultta id 1 diğerlei 0
+
+21//radio ların sadece price ve id si gözükmesin
+
+db.electronics.find({"name":"radio"},{"_id":0})
+
+//radio ların sadece price ı gözüksün id gözükmesin
+
+22//tüm documentları görüntüleyin
+sadece price ve name bilgileri gelsin
+
+db.electronics.find({},{"price":1,"name":1,"_id":0})
+
