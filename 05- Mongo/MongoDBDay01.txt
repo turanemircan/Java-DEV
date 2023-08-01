@@ -104,7 +104,7 @@ defaultta id 1 diğerlei 0
 
 21//radio ların sadece price ve id si gözükmesin
 
-db.electronics.find({"name":"radio"},{"_id":0})
+db.electronics.find({"name":"radio"},{"price":0,_id":0})
 
 //radio ların sadece price ı gözüksün id gözükmesin
 
@@ -112,4 +112,7 @@ db.electronics.find({"name":"radio"},{"_id":0})
 sadece price ve name bilgileri gelsin
 
 db.electronics.find({},{"price":1,"name":1,"_id":0})
+
+
+
 

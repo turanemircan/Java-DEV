@@ -1,0 +1,25 @@
+[{
+  "_id": {
+    "$oid": "64c8b528eb54da4e00910fc8"
+  },
+  "name": "Laptop",
+  "brand": "Lenova",
+  "price": 700
+},
+{
+  "_id": {
+    "$oid": "64c8b5cceb54da4e00910fca"
+  },
+  "name": "Laptop",
+  "brand": "Dell",
+  "price": 750
+},
+{
+  "_id": {
+    "$oid": "64c8b608eb54da4e00910fcb"
+  },
+  "name": "Laptop",
+  "brand": "Mac",
+  "price": 1700,
+  "tax": 10
+}]
