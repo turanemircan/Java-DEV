@@ -168,3 +168,8 @@ db.electronics.updateMany({"price":{$lt:300}},{$set:{"name":"Woww"}})
 
 43//Fiyatı 300 den düşük olan bütün
 documentların price ın 2 ile çarpalım
+
+db.electronics.updateMany(
+{"price":{$lt:300}},
+{$mul:{"price":2}}
+)
