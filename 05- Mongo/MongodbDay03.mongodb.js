@@ -159,7 +159,7 @@ db.grades.aggregate(pipeline);
 use('okul');
 var pipeline=[
 
-    {$match:{"name":{$regex:"^A"}}},
+    {$match:{"name":{$regex:"^A",$options:"i"}}}, //$options:"i" büyük küçük harf duyarsız hale getiriyor
     {$group:{"_id":"", "total_points":{$sum:"$points"}}}  //gruplama yok ise "" veya null kullanılı
 ]
 
