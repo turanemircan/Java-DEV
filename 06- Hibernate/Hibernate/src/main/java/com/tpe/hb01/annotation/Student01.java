@@ -1,16 +1,16 @@
 package com.tpe.hb01.annotation;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity//bu classtan oluşturduğumuz objeleri kalıcı hale getirmek için
        //DB de bir tablo oluşturulur-->Student01
 @Table(name = "t_student01")//tabloya custom bir isim vermemizi sağlar:opsiyonel
+//HQL:Student01
+//SQL:t_student01
 public class Student01 {
 
     @Id//entity annotasyonu kullanıldığında kullanımı zorunludur, PK sütununun belirlenmesini sağlar
+    @Column(name = "std_id")
     private int id;
 
     @Column(name = "std_name",length = 100,nullable = false,unique = true)//opsiyonel
@@ -18,8 +18,23 @@ public class Student01 {
 
     private int grade;
 
+    @Transient//bu fielda karşılık age isminde bir sütun oluşturmaz
+    private int age;
+
+    //BLOB
+//    @Lob//büyük boyutlu datalar için sütun oluşmasını sağlar
+//    private byte[] image;
+
     //getter-setter
 
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     public int getId() {
         return id;
