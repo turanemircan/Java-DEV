@@ -41,6 +41,7 @@ public class RunnerSave04 {
         diary3.setName("C Diary");
 
         //bi_directionalda:kesinlikle ilişki sahibi tarafında diğer obje set edilmeli
+        //aksi takdirde FK de sadece null değerler olur ve ilişki kurulamaz
         //yani Diary tarafında
 
 
@@ -61,6 +62,9 @@ public class RunnerSave04 {
         session.persist(diary1);
         session.persist(diary2);
         session.persist(diary3);
+
+        System.out.println("Student 1in diarysi:"+student1.getDiary());
+        System.out.println("1.Günlüğün sahibi :"+diary1.getStudent());
 
 
 

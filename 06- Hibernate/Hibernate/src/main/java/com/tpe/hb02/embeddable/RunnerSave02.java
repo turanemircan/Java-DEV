@@ -32,7 +32,7 @@ public class RunnerSave02 {
         Session session =sf.openSession();
         Transaction tx =session.beginTransaction();
 
-        //session.save(student2);-->Hibernate 5.2 ile DEPRECATE oldu.
+        //session.save(student2);--> DEPRECATE oldu.
         session.persist(student1);
         session.persist(student2);
 
