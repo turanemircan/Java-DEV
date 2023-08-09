@@ -1,6 +1,7 @@
 package com.tpe.hotelManagementSystem.service;
 
 import com.tpe.hotelManagementSystem.domain.Hotel;
+import com.tpe.hotelManagementSystem.exception.HotelResourceNotFoundException;
 import com.tpe.hotelManagementSystem.repository.HotelRepository;
 import com.tpe.hotelManagementSystem.repository.HotelRepositoryImpl;
 
@@ -35,5 +36,22 @@ public class HotelServiceImpl implements HotelService{
         System.out.println("Hotel saved successfully. Hotel ID : "+hotel.getId());
 
         return hotel;
+    }
+
+    @Override
+    public Hotel findHotelById(Long id) {
+        try {
+            Hotel foundHotel=hotelRepository.findHotelById(id);
+            if(foundHotel!=null){
+                System.out.println("----------------------------------");
+                System.out.println(foundHotel);
+                return foundHotel;
+            }else {
+                throw new HotelResourceNotFoundException("Hotel not found with id : "+id);
+            }
+        }catch (HotelResourceNotFoundException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 }

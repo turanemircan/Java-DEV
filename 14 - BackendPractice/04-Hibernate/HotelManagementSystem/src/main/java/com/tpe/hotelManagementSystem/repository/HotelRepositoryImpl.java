@@ -23,6 +23,10 @@ public class HotelRepositoryImpl implements HotelRepository{
 
     @Override
     public Hotel findHotelById(Long id) {
-        return null;
+
+        Session session=HibernateUtils.getSessionFactory().openSession();
+
+        return session.get(Hotel.class,id);
+
     }
 }
