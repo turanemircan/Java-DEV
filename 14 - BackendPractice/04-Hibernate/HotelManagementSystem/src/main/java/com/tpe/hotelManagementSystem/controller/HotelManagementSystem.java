@@ -2,8 +2,12 @@ package com.tpe.hotelManagementSystem.controller;
 
 import com.tpe.hotelManagementSystem.repository.HotelRepository;
 import com.tpe.hotelManagementSystem.repository.HotelRepositoryImpl;
+import com.tpe.hotelManagementSystem.repository.RoomRepository;
+import com.tpe.hotelManagementSystem.repository.RoomRepositoryImpl;
 import com.tpe.hotelManagementSystem.service.HotelService;
 import com.tpe.hotelManagementSystem.service.HotelServiceImpl;
+import com.tpe.hotelManagementSystem.service.RoomService;
+import com.tpe.hotelManagementSystem.service.RoomServiceImpl;
 
 import java.util.Scanner;
 
@@ -15,6 +19,9 @@ public class HotelManagementSystem {
 
         HotelRepository hotelRepository=new HotelRepositoryImpl();
         HotelService hotelService=new HotelServiceImpl(hotelRepository);
+
+        RoomRepository roomRepository=new RoomRepositoryImpl();
+        RoomService roomService=new RoomServiceImpl(roomRepository,hotelRepository);
 
         boolean exit=false;
         while(!exit){
@@ -34,7 +41,7 @@ public class HotelManagementSystem {
 
                     break;
                 case 2:
-                    displayRoomOperationsMenu();
+                    displayRoomOperationsMenu(roomService);
                     break;
                 case 3:
                     displayGuestOperationsMenu();
@@ -85,6 +92,7 @@ public class HotelManagementSystem {
                     //findHotelById
                     System.out.println("Enter the hotel ID: ");
                     Long hotelId = scanner.nextLong();
+                    hotelService.findHotelById(hotelId);
                     break;
                 case 3:
                     //deleteHotelById
@@ -113,7 +121,7 @@ public class HotelManagementSystem {
     }
 
     //Step 14
-    private static void displayRoomOperationsMenu() {
+    private static void displayRoomOperationsMenu(RoomService roomService) {
         System.out.println("RoomOperationMenu"); //Step 14
 
         scanner = new Scanner(System.in);  //Step 15
@@ -134,6 +142,8 @@ public class HotelManagementSystem {
                 case 1:
                     //saveRoom
                     System.out.println("==== Add New Room ====");
+                    roomService.saveRoom();
+
                     break;
                 case 2:
                     //findRoomById
