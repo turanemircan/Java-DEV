@@ -98,10 +98,12 @@ public class HotelManagementSystem {
                     //deleteHotelById
                     System.out.print("Enter the hotel ID to delete: ");
                     Long id = scanner.nextLong();
+                    hotelService.deleteHotelById(id);
                     break;
                 case 4:
                     //findAllHotels
                     System.out.println("==== Find All Hotels ====");
+                    hotelService.findAllHotels();
                     break;
                 case 5:
                     //updateHotelById
