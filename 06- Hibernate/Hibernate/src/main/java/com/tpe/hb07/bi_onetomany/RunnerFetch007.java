@@ -40,15 +40,21 @@ public class RunnerFetch007 {
         //2-cascade = CascadeType.REMOVE/orphanRemoval
 
         //id:1001 olan studentı silelim.
-        Student07 student1=session.get(Student07.class,1001);
-        session.delete(student1);
+//        Student07 student1=session.get(Student07.class,1001);
+//        session.delete(student1);
 
+        Student07 student2=session.get(Student07.class,1002);
+        student2.getBookList().remove(0);//103,104,105-->104,105
+        System.out.println(student2.getBookList());
 
-        //orphanRemoval ın farkı:???
+        //orphanRemoval sadece onetomany de var
+        //collectionından bir eleman silinirse, yada null olarak
+        //set edilirse orphanRemoval referansı olmayan bu nesneyi tablodan da kaldırır.
 
-
-
-
+        //müşteri-sipariş-->müşteri siparişi iptal edince
+        //                -->sipariş listesinden siparişi sileriz
+        //                -->sipariş listeden silinince tablodan da silinsin isteriz
+        //orphanRemoval kullanılabilir.
 
 
 
