@@ -34,6 +34,10 @@
 
         <property name="format_sql">true</property>
 
+<!--        <mapping class="com.tpe.hb05.manytoone_uni.Student05"/>-->
+<!--        <mapping class="com.tpe.hb05.manytoone_uni.University"/>-->
+<!--        <mapping package="com.tpe.domain"/>-->
+
 
     </session-factory>
 
