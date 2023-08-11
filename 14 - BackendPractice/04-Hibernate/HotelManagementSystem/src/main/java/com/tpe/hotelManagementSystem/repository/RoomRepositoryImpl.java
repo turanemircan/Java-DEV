@@ -58,6 +58,7 @@ public class RoomRepositoryImpl implements RoomRepository {
             }
 
             transaction.commit();
+            session.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,13 +1,10 @@
 package com.tpe.hotelManagementSystem.controller;
 
-import com.tpe.hotelManagementSystem.repository.HotelRepository;
-import com.tpe.hotelManagementSystem.repository.HotelRepositoryImpl;
-import com.tpe.hotelManagementSystem.repository.RoomRepository;
-import com.tpe.hotelManagementSystem.repository.RoomRepositoryImpl;
-import com.tpe.hotelManagementSystem.service.HotelService;
-import com.tpe.hotelManagementSystem.service.HotelServiceImpl;
-import com.tpe.hotelManagementSystem.service.RoomService;
-import com.tpe.hotelManagementSystem.service.RoomServiceImpl;
+import com.tpe.hotelManagementSystem.domain.Guest;
+import com.tpe.hotelManagementSystem.domain.Hotel;
+import com.tpe.hotelManagementSystem.exception.HotelResourceNotFoundException;
+import com.tpe.hotelManagementSystem.repository.*;
+import com.tpe.hotelManagementSystem.service.*;
 
 import java.util.Scanner;
 
@@ -22,6 +19,9 @@ public class HotelManagementSystem {
 
         RoomRepository roomRepository=new RoomRepositoryImpl();
         RoomService roomService=new RoomServiceImpl(roomRepository,hotelRepository);
+
+        GuestRepository guestRepository=new GuestRepositoryImpl();
+        GuestService guestService=new GuestServiceImpl(guestRepository);
 
         boolean exit=false;
         while(!exit){
@@ -44,7 +44,7 @@ public class HotelManagementSystem {
                     displayRoomOperationsMenu(roomService);
                     break;
                 case 3:
-                    displayGuestOperationsMenu();
+                    displayGuestOperationsMenu(guestService);
                     break;
                 case 4:
                     displayReservationOperationsMenu();
@@ -111,6 +111,19 @@ public class HotelManagementSystem {
                     System.out.print("Enter the hotel ID to update: ");
                     Long hotelId1 = scanner.nextLong();
                     scanner.nextLine(); // Consume the newline character
+                    try{
+                        System.out.println("Enter the updated hotel name : ");
+                        String name=scanner.nextLine();
+                        System.out.println("Enter the updated hotel location : ");
+                        String location=scanner.nextLine();
+                        Hotel updatedHotel=new Hotel();
+                        updatedHotel.setId(hotelId1);
+                        updatedHotel.setName(name);
+                        updatedHotel.setLocation(location);
+                        hotelService.updateHotel(hotelId1,updatedHotel);
+                    }catch (HotelResourceNotFoundException e){
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 6:
                     exit = true;
@@ -177,7 +190,7 @@ public class HotelManagementSystem {
 
     }
 
-    private static void displayGuestOperationsMenu() {
+    private static void displayGuestOperationsMenu(GuestService guestService) {
         System.out.println("GuestOperationMenu"); //Step 14
 
         scanner = new Scanner(System.in);  //Step 15
@@ -198,6 +211,7 @@ public class HotelManagementSystem {
                 case 1:
                     //saveGuest
                     System.out.println("==== Add New Guest ====");
+                    guestService.saveGuest();
                     break;
                 case 2:
                     //findGuestById
