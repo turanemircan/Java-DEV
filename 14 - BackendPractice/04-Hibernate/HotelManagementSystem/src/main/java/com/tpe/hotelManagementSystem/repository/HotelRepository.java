@@ -14,4 +14,6 @@ public interface HotelRepository {
 
     List<Hotel> findAllHotels();
 
+    void updateHotel(Hotel hotel);
+
 }

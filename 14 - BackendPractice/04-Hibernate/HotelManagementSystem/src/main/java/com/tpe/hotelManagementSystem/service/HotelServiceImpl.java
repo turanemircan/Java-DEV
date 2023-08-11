@@ -58,18 +58,18 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public void deleteHotelById(Long id) {
-        scanner=new Scanner(System.in);
+        scanner = new Scanner(System.in);
         Hotel hotelDelete = hotelRepository.findHotelById(id);
-        if(hotelDelete==null){
-            throw new HotelResourceNotFoundException("Hotel not found with id : "+id);
+        if (hotelDelete == null) {
+            throw new HotelResourceNotFoundException("Hotel not found with id : " + id);
         }
         System.out.println(hotelDelete);
-        System.out.println("Are you sure you want to delete hotel with id: "+id+" Please answer with Y or N");
-        String confirmation=scanner.nextLine();
-        if(confirmation.equalsIgnoreCase("Y")){
+        System.out.println("Are you sure you want to delete hotel with id: " + id + " Please answer with Y or N");
+        String confirmation = scanner.nextLine();
+        if (confirmation.equalsIgnoreCase("Y")) {
             hotelRepository.deleteHotelById(hotelDelete.getId());
             System.out.println("Hotel is deleted successfully...");
-        }else {
+        } else {
             System.out.println("Delete operation cancelled...");
         }
     }
@@ -92,5 +92,22 @@ public class HotelServiceImpl implements HotelService {
         }
 
         return null;
+    }
+
+    @Override
+    public void updateHotel(Long id, Hotel updateHotel) {
+        try {
+            Hotel existingHotel = hotelRepository.findHotelById(id);
+            if(existingHotel==null){
+                throw new HotelResourceNotFoundException("Hotel not found...");
+            }
+            existingHotel.setName(updateHotel.getName());
+            existingHotel.setLocation(updateHotel.getLocation());
+
+            hotelRepository.updateHotel(existingHotel);
+            System.out.println("Hotel updated successfully...");
+        }catch (HotelResourceNotFoundException e){
+            System.out.println(e.getMessage());
+        }
     }
 }

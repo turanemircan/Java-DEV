@@ -2,6 +2,8 @@ package com.tpe.hotelManagementSystem.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="t_guests")
@@ -16,9 +18,21 @@ public class Guest {
 
     private LocalDateTime createDate;
 
+
     @PrePersist
    public void Prepersist(){
         createDate=LocalDateTime.now();
+    }
+
+    @OneToMany(mappedBy = "guest",cascade=CascadeType.ALL, orphanRemoval = true,fetch=FetchType.EAGER)
+    private List<Reservation> reservations=new ArrayList<>();
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 
     public Long getId() {
@@ -53,6 +67,7 @@ public class Guest {
 //        this.createDate = createDate;
 //    }
 
+
     @Override
     public String toString() {
         return "Guest{" +
@@ -60,6 +75,7 @@ public class Guest {
                 ", name='" + name + '\'' +
                 ", address=" + address +
                 ", createDate=" + createDate +
+//                ", reservations=" + reservations +
                 '}';
     }
 }
