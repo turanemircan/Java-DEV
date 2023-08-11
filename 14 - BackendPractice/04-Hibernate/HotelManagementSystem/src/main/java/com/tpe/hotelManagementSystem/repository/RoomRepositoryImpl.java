@@ -1,9 +1,12 @@
 package com.tpe.hotelManagementSystem.repository;
 
 import com.tpe.hotelManagementSystem.config.HibernateUtils;
+import com.tpe.hotelManagementSystem.domain.Hotel;
 import com.tpe.hotelManagementSystem.domain.Room;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import java.util.List;
 
 public class RoomRepositoryImpl implements RoomRepository {
     @Override
@@ -19,4 +22,45 @@ public class RoomRepositoryImpl implements RoomRepository {
             return null;
         }
     }
+
+    @Override
+    public Room findRoomById(Long roomId) {
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        return session.get(Room.class, roomId);
+    }
+
+    @Override
+    public List<Room> findAllRoom() {
+        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
+            String hql = "FROM Room";
+            List<Room> rooms = session.createQuery(hql, Room.class).getResultList();
+            return rooms;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public void deleteRoomById(Long id) {
+        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            Room room = session.get(Room.class, id);
+            if (room != null) {
+                // hotel listesinden room u kaldırmak gerek
+                Hotel hotel = room.getHotel();
+                if (hotel != null) {
+                    hotel.getRooms().remove(room);
+                }
+                // Oda silme işlemi
+                session.delete(room);
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
