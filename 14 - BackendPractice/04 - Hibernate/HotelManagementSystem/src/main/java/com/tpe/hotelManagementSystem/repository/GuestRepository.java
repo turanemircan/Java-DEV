@@ -6,4 +6,7 @@ public interface GuestRepository {
 
     //Step 34a
     void saveGuest(Guest guest);
+
+    //Step 50a create findGuestById
+    Guest findGuestById(Long id);
 }

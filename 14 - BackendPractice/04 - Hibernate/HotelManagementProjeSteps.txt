@@ -234,9 +234,51 @@ run and control methods
 --Step 48i add OneToMany relationship between Guest and Reservatin 
 --Step 48j add getter and setter Reservation in Guest.class 
 --Step 48k delete toString method and rewrite
---Step 48l add OneToMany relationship between Guest and Reservatin 
+
+practice 6
+
+--Step 48l add OneToMany relationship between Room and Reservatin 
+--Step 148m getter and setter for reservation
+--Step 48n toString for reservation
+
+Not:
+@OneToOne default Fetchtype eager 
+@OneToMany default Fetchtype lazy
+@ManyToMany default Fetchtype lazy 
+@ManyToOne default Fetchtype eager
 
 
+--Step 49 create ReservationRepository interface 
+--Step 49a create saveReservation
+--Step 49b create ReservationRepositoryImpl and implements methods
+--Step 49c write saveResevation codes
+--Step 49d create ReservationService interface 
+--Step 49e create saveReservation
+--Step 49f create ReservationServiceImpl and implements methods
+
+reservation işlemleri içinde room ve guet kullanılacağı için önce findguetbyıd methodunu yazalım
+
+--Step50a create findGuestById in GuestRepository
+--Step 50b implements methods in GuestRepositoryImpl 
+--Step 50c write findGuestById codes
+--Step 50d create findGuestById in GuestService
+--Step 50f implements methods in GuestServiceImpl
+--Step 50g write findGuestById codes
+--Step 50h call guestService.findGuestById from case 2
+
+--Step 51a create scanner
+--Step 51b create constructor injection ResrevationRepository,GuestRepository,RoomRepository
+--Step 51c write saveReservation codes
+--Step 51d Create instance of ReservationRepository
+--Step 51e call reservationService.saveResrevation from case1 
+
+run and test methods
+
+Tamamlanacak methodlar
+DeleteGuestById
+FindAllGuest
+findReservationById
+deleteReservationById
 
 
 

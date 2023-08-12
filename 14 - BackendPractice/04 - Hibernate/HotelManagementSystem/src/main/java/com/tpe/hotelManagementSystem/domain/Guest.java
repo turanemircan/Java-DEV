@@ -27,7 +27,7 @@ public class Guest {
     }
 
     //Step 48i add OneToMany relationship between Guest and Reservatin
-    @OneToMany(mappedBy = "guest",cascade=CascadeType.ALL, orphanRemoval = true,fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "guest",cascade=CascadeType.ALL, orphanRemoval = true,fetch=FetchType.LAZY)
     private List<Reservation> reservations=new ArrayList<>();
 
     //Step 48j add getter and setter Reservation

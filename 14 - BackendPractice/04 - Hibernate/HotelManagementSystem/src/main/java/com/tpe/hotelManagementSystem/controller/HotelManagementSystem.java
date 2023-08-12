@@ -26,6 +26,11 @@ public class HotelManagementSystem {
         GuestRepository guestRepository=new GuestRepositoryImpl();
         GuestService guestService=new GuestServiceImpl(guestRepository);
 
+        //Step 51d create instance of reservationRepository
+        ReservationRepository reservationRepository=new ReservationRepositoryImpl();
+        ReservationService reservationService=new ReservationServiceImpl(reservationRepository,guestRepository,roomRepository);
+
+
         boolean exit=false;
         while(!exit){
             System.out.println("==== Hotel Management System  Menu ====");
@@ -50,7 +55,7 @@ public class HotelManagementSystem {
                     displayGuestOperationsMenu(guestService);
                     break;
                 case 4:
-                    displayReservationOperationsMenu();
+                    displayReservationOperationsMenu(reservationService);
                     break;
                 case 5:
                     exit=true;
@@ -224,6 +229,7 @@ public class HotelManagementSystem {
                     //findGuestById
                     System.out.print("Enter the Guest ID to Find: ");
                     Long guestId = scanner.nextLong();
+                    guestService.findGustById(guestId); //Step 50h
                     break;
                 case 3:
 
@@ -249,7 +255,7 @@ public class HotelManagementSystem {
 
     //Step 14d create displayReservationOperationsMenu() method
 
-    private static void displayReservationOperationsMenu() {
+    private static void displayReservationOperationsMenu(ReservationService reservationService) {
         System.out.println("ReservationOperationMenu"); //Step 14
 
         scanner = new Scanner(System.in);  //Step 15
@@ -271,6 +277,7 @@ public class HotelManagementSystem {
                 case 1:
                     System.out.println("==== Add a new reservation ====");
                     //saveReservation
+                    reservationService.saveReservation(); //Step 51e
                     break;
                 case 2:
                     //step 27e ::findReservationById
