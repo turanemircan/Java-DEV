@@ -1,14 +1,12 @@
-package com.tpe.hb12.caching;
+package com.tpe.hb13.get_load;
+
+
 
 import javax.persistence.*;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 
 @Entity
-@Cacheable//2.level cache alınabilir
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Student12 {
+public class Student13 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

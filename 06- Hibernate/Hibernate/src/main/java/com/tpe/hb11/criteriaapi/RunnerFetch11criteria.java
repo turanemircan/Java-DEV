@@ -6,10 +6,8 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.util.Arrays;
 import java.util.List;
 
 public class RunnerFetch11criteria {
@@ -79,7 +77,17 @@ public class RunnerFetch11criteria {
                      where(predicateOr);
 
         //ismi Student 1 olan kaydı silelim.(CriteriaDelete)
+        CriteriaDelete<Student11> criteriaDelete =cb.createCriteriaDelete(Student11.class);
+        Root<Student11> rootDelete=criteriaDelete.from(Student11.class);
+        criteriaDelete.where(cb.equal(rootDelete.get("name"),"Student 1"));
+        System.out.println(session.createQuery(criteriaDelete).executeUpdate());
         //ismi Student 3 olan kaydın sadece name ve grade bilgilerini görelim.(CriteriaQuery<Object[]>)
+        CriteriaQuery<Object[]> criteriaQuery2=cb.createQuery(Object[].class);
+        Root<Student11> root2=criteriaQuery2.from(Student11.class);
+        criteriaQuery2.select(cb.array(root2.get("name"),root2.get("grade"))).
+                where(cb.equal(root2.get("name"),"Student 3"));
+        session.createQuery(criteriaQuery2).getResultList().
+                forEach(t-> System.out.println(Arrays.toString(t)));
 
 
 
