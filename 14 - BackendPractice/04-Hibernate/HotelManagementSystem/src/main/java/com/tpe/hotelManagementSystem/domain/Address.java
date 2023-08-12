@@ -4,11 +4,14 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class Address {
+
+    //Step 33c add fields
     private String street;
     private String city;
     private String country;
     private int zipCode;
 
+    //Step 33d add getter and setter
     public String getStreet() {
         return street;
     }
@@ -41,6 +44,7 @@ public class Address {
         this.zipCode = zipCode;
     }
 
+    //Step 33e add toString
     @Override
     public String toString() {
         return "Address{" +

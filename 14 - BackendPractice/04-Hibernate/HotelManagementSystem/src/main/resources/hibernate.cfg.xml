@@ -41,10 +41,13 @@
         <property name="hibernate.javax.cache.provider">org.ehcache.jsr107.EhcacheCachingProvider</property>
 
         <!-- Mapping entity classes -->
+        <!-- Step 16 add Hotel and Room-->
         <mapping class="com.tpe.hotelManagementSystem.domain.Hotel" />
         <mapping class="com.tpe.hotelManagementSystem.domain.Room" />
+        <!-- Step 33i add Guest and Address-->
         <mapping class="com.tpe.hotelManagementSystem.domain.Guest" />
         <mapping class="com.tpe.hotelManagementSystem.domain.Address" />
+        <!-- Step 42c add Reservation-->
         <mapping class="com.tpe.hotelManagementSystem.domain.Reservation" />
 
 

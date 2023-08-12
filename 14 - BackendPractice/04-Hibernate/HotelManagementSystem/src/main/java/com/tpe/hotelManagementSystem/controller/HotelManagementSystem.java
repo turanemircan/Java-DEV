@@ -1,6 +1,4 @@
 package com.tpe.hotelManagementSystem.controller;
-
-import com.tpe.hotelManagementSystem.domain.Guest;
 import com.tpe.hotelManagementSystem.domain.Hotel;
 import com.tpe.hotelManagementSystem.exception.HotelResourceNotFoundException;
 import com.tpe.hotelManagementSystem.repository.*;
@@ -9,17 +7,22 @@ import com.tpe.hotelManagementSystem.service.*;
 import java.util.Scanner;
 
 public class HotelManagementSystem {
-
+    //Step 11 create Scanner
     private static Scanner scanner;
+
+    //Step 12 create displayMenuHotelManagementSystem()
     public static void displayMenuHotelManagementSystem(){
         scanner=new Scanner(System.in);
 
+        //Step 25 create hotelRepository,hotelService instance
         HotelRepository hotelRepository=new HotelRepositoryImpl();
         HotelService hotelService=new HotelServiceImpl(hotelRepository);
 
+        //Step 30a create roomRepository, roomService instance
         RoomRepository roomRepository=new RoomRepositoryImpl();
         RoomService roomService=new RoomServiceImpl(roomRepository,hotelRepository);
 
+        //Step 36a create guestRepository,guestService instance
         GuestRepository guestRepository=new GuestRepositoryImpl();
         GuestService guestService=new GuestServiceImpl(guestRepository);
 
@@ -63,6 +66,7 @@ public class HotelManagementSystem {
 
 
     }
+    //Step 14a create displayHotelOperationsMenu() method
     private static void displayHotelOperationsMenu(HotelService hotelService) {
         System.out.println("HotelOperationMenu"); //Step 14
         scanner = new Scanner(System.in); //Step 15
@@ -85,25 +89,25 @@ public class HotelManagementSystem {
                 case 1:
                     //saveHotel
                     System.out.println("==== Add a new hotel ====");
-                    hotelService.saveHotel();
+                    hotelService.saveHotel(); //Step 25a
 
                     break;
                 case 2:
                     //findHotelById
                     System.out.println("Enter the hotel ID: ");
                     Long hotelId = scanner.nextLong();
-                    hotelService.findHotelById(hotelId);
+                    hotelService.findHotelById(hotelId); //Step 26c
                     break;
                 case 3:
                     //deleteHotelById
                     System.out.print("Enter the hotel ID to delete: ");
                     Long id = scanner.nextLong();
-                    hotelService.deleteHotelById(id);
+                    hotelService.deleteHotelById(id); //step 32d
                     break;
                 case 4:
                     //findAllHotels
                     System.out.println("==== Find All Hotels ====");
-                    hotelService.findAllHotels();
+                    hotelService.findAllHotels();  //Step37g
                     break;
                 case 5:
                     //updateHotelById
@@ -111,6 +115,8 @@ public class HotelManagementSystem {
                     System.out.print("Enter the hotel ID to update: ");
                     Long hotelId1 = scanner.nextLong();
                     scanner.nextLine(); // Consume the newline character
+
+                    //Step 38g complete update method and call hotelService.updateHotel
                     try{
                         System.out.println("Enter the updated hotel name : ");
                         String name=scanner.nextLine();
@@ -135,7 +141,7 @@ public class HotelManagementSystem {
         }
     }
 
-    //Step 14
+    //Step 14b create displayRoomOperationsMenu() method
     private static void displayRoomOperationsMenu(RoomService roomService) {
         System.out.println("RoomOperationMenu"); //Step 14
 
@@ -157,14 +163,14 @@ public class HotelManagementSystem {
                 case 1:
                     //saveRoom
                     System.out.println("==== Add New Room ====");
-                    roomService.saveRoom();
+                    roomService.saveRoom(); //Step 30b
 
                     break;
                 case 2:
                     //findRoomById
                     System.out.print("Enter the Room ID to Find: ");
                     Long roomId = scanner.nextLong();
-                    roomService.findRoomById(roomId);
+                    roomService.findRoomById(roomId);  //Step 39g
                     break;
                 case 3:
                     //deleteRoomById
@@ -172,12 +178,12 @@ public class HotelManagementSystem {
                     System.out.print("Enter the room ID to delete: ");
                     Long roomIdToDelete = scanner.nextLong();
                     scanner.nextLine(); // Consume the newline character
-                    roomService.deleteRoomById(roomIdToDelete);
+                    roomService.deleteRoomById(roomIdToDelete);  //Step 41g
                     break;
                 case 4:
                     //findAllRoom
                     System.out.println("==== Find All Rooms ====");
-                    roomService.findAllRooms();
+                    roomService.findAllRooms();  //step 40g
                     break;
                 case 5:
                     exit = true;
@@ -190,6 +196,7 @@ public class HotelManagementSystem {
 
     }
 
+    //Step 14c create displayGuestOperationsMenu() method
     private static void displayGuestOperationsMenu(GuestService guestService) {
         System.out.println("GuestOperationMenu"); //Step 14
 
@@ -211,7 +218,7 @@ public class HotelManagementSystem {
                 case 1:
                     //saveGuest
                     System.out.println("==== Add New Guest ====");
-                    guestService.saveGuest();
+                    guestService.saveGuest(); //Step 36b
                     break;
                 case 2:
                     //findGuestById
@@ -239,6 +246,8 @@ public class HotelManagementSystem {
             }
         }
     }
+
+    //Step 14d create displayReservationOperationsMenu() method
 
     private static void displayReservationOperationsMenu() {
         System.out.println("ReservationOperationMenu"); //Step 14

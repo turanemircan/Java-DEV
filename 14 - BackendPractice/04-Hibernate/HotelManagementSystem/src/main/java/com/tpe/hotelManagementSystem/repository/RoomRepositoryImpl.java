@@ -9,6 +9,8 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class RoomRepositoryImpl implements RoomRepository {
+
+    //Step 27c write saveRoom method codes
     @Override
     public Room saveRoom(Room room) {
         try (Session session = HibernateUtils.getSessionFactory().openSession()) { //hazır methodlardan bir session açtık
@@ -23,12 +25,15 @@ public class RoomRepositoryImpl implements RoomRepository {
         }
     }
 
+    //Step 39c write findRoomById codes
     @Override
     public Room findRoomById(Long roomId) {
         Session session = HibernateUtils.getSessionFactory().openSession();
         return session.get(Room.class, roomId);
     }
 
+
+    //Step 40c write findAllRoom codes
     @Override
     public List<Room> findAllRoom() {
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {
@@ -41,6 +46,7 @@ public class RoomRepositoryImpl implements RoomRepository {
         }
     }
 
+    //Step 41c write deleteRoomById codes
     @Override
     public void deleteRoomById(Long id) {
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {

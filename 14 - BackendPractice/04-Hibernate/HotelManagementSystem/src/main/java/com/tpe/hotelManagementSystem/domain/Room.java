@@ -5,6 +5,8 @@ import javax.persistence.*;
 @Entity
 @Table(name="t_rooms")
 public class Room {
+
+    //Step 18a add fields
     @Id
     private Long id;
     @Column(nullable = false)
@@ -13,10 +15,12 @@ public class Room {
     @Column(nullable = false)
     private int capacity;
 
+    //Step 19a
     @ManyToOne
     @JoinColumn(name="hotel_id",nullable = false)
     private Hotel hotel;
 
+    //Step 19b constructor
     public Room() {
     }
 
@@ -27,6 +31,7 @@ public class Room {
         this.hotel = hotel;
     }
 
+    //Step 19c getter and setter
     public Long getId() {
         return id;
     }
@@ -59,6 +64,7 @@ public class Room {
         this.hotel = hotel;
     }
 
+    //Step 19d toString
     @Override
     public String toString() {
         return "Room{" +

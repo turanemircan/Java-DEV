@@ -6,6 +6,8 @@ import java.time.LocalDate;
 @Entity
 @Table(name="t_reservation")
 public class Reservation {
+
+    //Step 42d add fields and annotations
     @GeneratedValue(generator = "sequence",strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name="sequence", //Yukarıdaki isimle aynı olmak zorunda
                        sequenceName = "reservation_id",
@@ -19,14 +21,17 @@ public class Reservation {
     @Column(nullable = false)
     private LocalDate checkOut;
 
+    //Step 42e Add ManyToOne relationship between Reservation and Guest
     @ManyToOne
     @JoinColumn(name="guest_id",nullable = false)
     private Guest guest;
 
+    //Step 42f Add ManyToOne relationship between Reservation and Guest
     @ManyToOne
     @JoinColumn(name="room_id",nullable = false)
     private Room room;
 
+    //Step 42g getter and setter
     public Long getId() {
         return id;
     }
@@ -67,6 +72,7 @@ public class Reservation {
         this.room = room;
     }
 
+    //Step 42h add toString
     @Override
     public String toString() {
         return "Reservation{" +

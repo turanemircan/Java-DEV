@@ -7,13 +7,18 @@ import com.tpe.hotelManagementSystem.repository.GuestRepository;
 import java.util.Scanner;
 
 public class GuestServiceImpl implements GuestService{
+
+    //Step 35g scanner
     private static Scanner scanner;
+
+    //Step 35h create guestRepository constructor injection
     private final GuestRepository guestRepository;
 
     public GuestServiceImpl(GuestRepository guestRepository) {
         this.guestRepository = guestRepository;
     }
 
+    //Step 35i write saveGuest method codes
     @Override
     public Guest saveGuest() {
         scanner=new Scanner(System.in);

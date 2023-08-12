@@ -7,6 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class GuestRepositoryImpl implements GuestRepository {
+
+    //Step 35 c write saveGuest methods codes
     @Override
     public void saveGuest(Guest guest) {
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {

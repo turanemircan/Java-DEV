@@ -10,6 +10,8 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class HotelRepositoryImpl implements HotelRepository {
+
+    //Step 22a create saveHotel
     @Override
     public Hotel saveHotel(Hotel hotel) {
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {
@@ -25,6 +27,7 @@ public class HotelRepositoryImpl implements HotelRepository {
         return null;
     }
 
+    //Step 26b findHotelById
     @Override
     public Hotel findHotelById(Long id) {
 
@@ -34,6 +37,7 @@ public class HotelRepositoryImpl implements HotelRepository {
 
     }
 
+    //Step 31c deleteHotelById
     @Override
     public void deleteHotelById(Long id) {
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {
@@ -52,6 +56,7 @@ public class HotelRepositoryImpl implements HotelRepository {
 
     }
 
+    //Step 37c write finaAllHotels codes
     @Override
     public List<Hotel> findAllHotels() {
         Session session = HibernateUtils.getSessionFactory().openSession();
@@ -59,6 +64,8 @@ public class HotelRepositoryImpl implements HotelRepository {
         return hotels;
     }
 
+
+    //Step 38c write updateHotel codes
     @Override
     public void updateHotel(Hotel hotel) {
 

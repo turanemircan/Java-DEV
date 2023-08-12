@@ -21,7 +21,7 @@ public class RoomServiceImpl implements RoomService {
         this.roomRepository = roomRepository;
         this.hotelRepository = hotelRepository;
     }
-
+    //Step 29 write saveRoom codes
     @Override
     public Room saveRoom() {
         scanner = new Scanner(System.in);
@@ -35,7 +35,7 @@ public class RoomServiceImpl implements RoomService {
         room.setCapacity(scanner.nextInt());
         scanner.nextLine();
 
-        System.out.println("Enter hotel id: "); //hangi hoteliin odası olacağı soruldu
+        System.out.println("Enter hotel id: "); //hangi hotelin odası olacağı soruldu
         Long hotelId = scanner.nextLong();
         scanner.nextLine();
 
@@ -55,6 +55,7 @@ public class RoomServiceImpl implements RoomService {
         return room;
     }
 
+    //Step 39f write findRoomById codes
     @Override
     public Room findRoomById(Long id) {
         try {
@@ -73,7 +74,7 @@ public class RoomServiceImpl implements RoomService {
         }
     }
 
-
+    //Step 40f write findAllRoom codes
     @Override
     public List<Room> findAllRooms() {
         try {
@@ -92,6 +93,7 @@ public class RoomServiceImpl implements RoomService {
         }
     }
 
+    //Step 41f write eleteRoomById codes
     @Override
     public void deleteRoomById(Long id) {
         try {

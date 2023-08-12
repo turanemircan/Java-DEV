@@ -7,6 +7,7 @@ import org.hibernate.cfg.Configuration;
 
 public class HibernateUtils {
 
+    //Step 10a create sessionFactory
     private static final SessionFactory sessionFactory;
     static {
         try{
@@ -20,7 +21,7 @@ public class HibernateUtils {
         }
     }
 
-    //getSessionFactory methodu
+    //Step 10b getSessionFactory method
     public static SessionFactory getSessionFactory(){
         return sessionFactory;
     }
@@ -29,7 +30,7 @@ public class HibernateUtils {
         getSessionFactory().close();
     }
 
-    //sessionClose
+    //Step 10c create sessionClose method
     public static void closeSession(Session session){
         if(session!=null && session.isOpen()){
             session.close();

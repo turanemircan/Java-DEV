@@ -20,6 +20,8 @@ public class HotelServiceImpl implements HotelService {
 
     //HotelRepository hotelRepository=new HotelRepositoryImpl();
 
+
+    //Step 24a create saveHotel method
     @Override
     public Hotel saveHotel() {
         scanner = new Scanner(System.in);
@@ -39,6 +41,7 @@ public class HotelServiceImpl implements HotelService {
         return hotel;
     }
 
+    //Step 26d indHotelById
     @Override
     public Hotel findHotelById(Long id) {
         try {
@@ -56,6 +59,7 @@ public class HotelServiceImpl implements HotelService {
         }
     }
 
+    //step 32c write deleteHotelById methods codes
     @Override
     public void deleteHotelById(Long id) {
         scanner = new Scanner(System.in);
@@ -74,6 +78,7 @@ public class HotelServiceImpl implements HotelService {
         }
     }
 
+    //Step 37f write findAllHotels codes
     @Override
     public List<Hotel> findAllHotels() {
         try {
@@ -94,6 +99,7 @@ public class HotelServiceImpl implements HotelService {
         return null;
     }
 
+    //Step38f write updateHotel codes
     @Override
     public void updateHotel(Long id, Hotel updateHotel) {
         try {
