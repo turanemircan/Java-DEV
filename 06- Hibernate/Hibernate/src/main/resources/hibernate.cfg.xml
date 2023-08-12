@@ -12,7 +12,7 @@
 
         <property name = "hibernate.connection.driver_class">org.postgresql.Driver</property>
 
-        <property name="connection.url">jdbc:postgresql://localhost:5432/hibernate_db</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/recap</property>
 
         <property name="connection.username">dev_user</property>
 
