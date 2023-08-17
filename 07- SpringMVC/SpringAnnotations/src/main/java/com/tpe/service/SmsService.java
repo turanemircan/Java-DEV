@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.Properties;
 import java.util.Random;
 
 @Component("sms_service")//default bean name:smsService
@@ -45,5 +46,14 @@ public class SmsService implements MessageService{
         System.out.println("email : "+email);
         System.out.println("phone : "+phone);
     }
+
+    @Autowired
+    private Properties properties;
+
+    public void printProperties(){
+        System.out.println("email bilgisi : "+properties.get("mymail"));
+        System.out.println("phone bilgisi : "+properties.get("phone"));
+    }
+
 
 }
