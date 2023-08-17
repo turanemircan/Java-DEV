@@ -23,12 +23,12 @@ public class Reservation {
 
     //Step 42e Add ManyToOne relationship between Reservation and Guest
     @ManyToOne
-    @JoinColumn(name="guest_id",nullable = false)
+    @JoinColumn(name="guest_id")
     private Guest guest;
 
     //Step 42f Add ManyToOne relationship between Reservation and Guest
     @ManyToOne
-    @JoinColumn(name="room_id",nullable = false)
+    @JoinColumn(name="room_id")
     private Room room;
 
     //Step 42g getter and setter

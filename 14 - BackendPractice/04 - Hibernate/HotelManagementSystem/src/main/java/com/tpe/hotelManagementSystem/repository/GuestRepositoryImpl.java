@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
 public class GuestRepositoryImpl implements GuestRepository {
 
@@ -49,9 +50,42 @@ public class GuestRepositoryImpl implements GuestRepository {
         Session session = HibernateUtils.getSessionFactory().openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder(); //criteriabuilder oluşturuldu, methodları kullanılabilir
         CriteriaQuery<Guest> query = builder.createQuery(Guest.class); //Sonuçlar guest data type inde olacak
-        Root<Guest> root= query.from(Guest.class); //root isminde kök oluşturuldu
-        query.select(root).where(builder.equal(root.get("id"),guestId)); //sorgu seçimi ve filtreleme
+        Root<Guest> root = query.from(Guest.class); //root isminde kök oluşturuldu
+        query.select(root).where(builder.equal(root.get("id"), guestId)); //sorgu seçimi ve filtreleme
 
         return session.createQuery(query).uniqueResult();
+    }
+
+    //Step 52c write deleteguestbyıd codes
+    @Override
+    public void deleteGuestById(Long id) {
+        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            Guest guest = session.get(Guest.class, id);
+            if (guest != null) {
+                // Remove the guest from any associated reservations
+                guest.getReservations().forEach(reservation -> reservation.setGuest(null));
+
+                // Delete the guest
+                session.delete(guest);
+            }
+
+            transaction.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    //Step 53c write findAllGuest codes
+    @Override
+    public List <Guest> findAllGuest() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        String hql = "FROM Guest";
+        List<Guest> guests = session.createQuery(hql, Guest.class).getResultList();
+        return guests;
     }
 }

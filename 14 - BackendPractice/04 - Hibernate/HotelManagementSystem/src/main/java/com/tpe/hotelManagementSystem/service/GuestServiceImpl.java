@@ -5,6 +5,7 @@ import com.tpe.hotelManagementSystem.domain.Guest;
 import com.tpe.hotelManagementSystem.exception.GuestNotFoundException;
 import com.tpe.hotelManagementSystem.repository.GuestRepository;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class GuestServiceImpl implements GuestService {
@@ -66,4 +67,40 @@ public class GuestServiceImpl implements GuestService {
         }
 
     }
+
+
+    //Step 52f write deleteguestbyıd codes
+    @Override
+    public void deleteGuestId(Long id) {
+        try {
+            Guest existingGuest = guestRepository.findGuestById(id);
+            if (existingGuest == null) {
+                throw new GuestNotFoundException("Guest  not found with ID: " + id);
+            }
+            guestRepository.deleteGuestById(id);
+            throw new GuestNotFoundException("Guest  delete successfully  with ID: " + id);
+        } catch (GuestNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //Step 53f write findAllGuest codes
+    @Override
+    public List<Guest> findAllGuest() {
+        try {
+            List<Guest> guests = guestRepository.findAllGuest();
+            if (!guests.isEmpty()) {
+                for (Guest guest : guests) {
+                    System.out.println(guest);
+                }
+            } else {
+                throw new GuestNotFoundException("Guest  not found");
+            }
+            return guests;
+        }catch (GuestNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
 }
