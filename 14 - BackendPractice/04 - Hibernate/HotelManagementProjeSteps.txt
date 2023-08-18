@@ -274,11 +274,51 @@ reservation işlemleri içinde room ve guet kullanılacağı için önce findgue
 
 run and test methods
 
-Tamamlanacak methodlar
-DeleteGuestById
-FindAllGuest
-findReservationById
-deleteReservationById
+--Step 52a create deleteGuestById in GuestRepository
+--Step 52b implements methods GuestRepositoryImpl
+--Step 52c write deleteguestbyıd codes
+--Step 52d create deleteGuestById in GuestService
+--Step 52e implements methods in GuestServiceImpl
+--Step 52f write deleteguestbyıd codes
+--Step 52g call gueestService.deleteguestbyıd from case 3
+
+
+--Step 53a create findAllGuest in GuestRepository
+--Step 53b implements methods GuestRepositoryImpl
+--Step 53c write findAllGuest codes
+--Step 53d create findAllGuest in GuestService
+--Step 53e implements methods in GuestServiceImpl
+--Step 53f write findAllGuest codes
+--Step 53g call gueestService.findAllGuest from case 4
+
+
+--Step 54a create findReservationbyId in ReservationRepository
+--Step 54b implements methods ReservationRepositoryImpl
+--Step 54c write findReservationbyId codes
+--Step 54d create findReservationbyId in ReservationService
+--Step 54e implements methods in ReservationServiceImpl
+--Step 54f write findReservationbyId codes
+--Step 54g call gueestService.findReservationbyId from case 2
+
+--Step 55a create findAllReservations in ReservationRepository
+--Step 55b implements methods ReservationRepositoryImpl
+--Step 55c write findAllReservations codes
+--Step 55d create findAllReservations in ReservationService
+--Step 55e implements methods in ReservationServiceImpl
+--Step 55f write findAllReservations codes
+--Step 55g call gueestService.findAllReservations from case 3
+
+
+--Step 56a create deleteReservationById in ReservationRepository
+--Step 56b implements methods ReservationRepositoryImpl
+--Step 56c write deleteReservationById codes
+--Step 56d create deleteReservationById in ReservationService
+--Step 56e implements methods in ReservationServiceImpl
+--Step 56f write deleteReservationById codes
+--Step 56g call gueestService.deleteReservationById from case 4
+
+
+
 
 
 

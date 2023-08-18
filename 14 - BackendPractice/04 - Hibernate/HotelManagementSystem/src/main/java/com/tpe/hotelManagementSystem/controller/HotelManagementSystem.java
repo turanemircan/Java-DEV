@@ -238,10 +238,12 @@ public class HotelManagementSystem {
                     System.out.print("Enter the Guest ID to delete: ");
                     Long guestIdToDelete = scanner.nextLong();
                     scanner.nextLine(); // Consume the newline character
+                    guestService.deleteGuestId(guestIdToDelete); //Step 52g
                     break;
                 case 4:
                     //FindAllGuest
                     System.out.println("==== Find All Guests ====");
+                    guestService.findAllGuest(); //Step 53g
                     break;
                 case 5:
                     exit = true;
@@ -284,16 +286,19 @@ public class HotelManagementSystem {
                     System.out.print("Enter the reservation ID: ");
                     Long reservationId = scanner.nextLong();
                     scanner.nextLine(); // Consume the newline character
+                    reservationService.findReservationById(reservationId);//Step 54g
                     break;
                 case 3:
                     //step 28e ::findAllReservations
                     System.out.println("==== Find All Reservations ====");
+                    reservationService.findAllReservations(); //Step 55g
                     break;
                 case 4:
                     //deleteReservationById
                     System.out.print("Enter the reservation ID to delete: ");
                     Long reservationIdToDelete = scanner.nextLong();
                     scanner.nextLine(); // Consume the newline character
+                    reservationService.deleteReservationById(reservationIdToDelete);//Step 56g
                     break;
 
                 case 5:
