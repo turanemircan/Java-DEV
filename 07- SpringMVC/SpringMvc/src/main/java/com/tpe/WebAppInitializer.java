@@ -10,22 +10,30 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 // ve başlatılmasını kolaylaştırır.
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     /*dispatcher:
-              Servlet WebAppContext-->controllers-viewresolver-handlermapping
+              Servlet WebAppContext-->controller-viewresolver-handlermapping
               Root WebAppContext-->dataya erişim:services-repos
     */
 
     @Override
-    protected Class<?>[] getRootConfigClasses() {//dataya erişim(hibernate)
-        return new Class[0];
+    protected Class<?>[] getRootConfigClasses() {//dataya erişim(hibernate-jdbc)
+        return new Class[]{
+                RootContextConfig.class
+        };
     }
 
     @Override
-    protected Class<?>[] getServletConfigClasses() {//controllers-viewresolver-handlermapping
-        return new Class[0];
+    protected Class<?>[] getServletConfigClasses() {//controllers-viewresolver-handlermapping(SpringMVC config)
+        return new Class[]{
+                WebMvcConfig.class
+        };
     }
 
-    @Override
+    @Override//hangi url ile gelen istekler servlet tarafından karşılanacak
     protected String[] getServletMappings() {
-        return new String[0];
+        return new String[]{
+                "/"
+        };
     }
+
+
 }
