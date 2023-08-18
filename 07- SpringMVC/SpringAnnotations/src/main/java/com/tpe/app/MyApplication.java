@@ -63,9 +63,13 @@ public class MyApplication {
             System.out.println(service5);
         }
 
+        System.out.println("---------------------------------------");
+
         SmsService service6=context.getBean(SmsService.class);
         service6.printContact();
+        service6.printProperties();
 
+        System.out.println("---------------------------------------");
 
      context.close();//singleton scopeundaki tüm beanleri imha eder
 
