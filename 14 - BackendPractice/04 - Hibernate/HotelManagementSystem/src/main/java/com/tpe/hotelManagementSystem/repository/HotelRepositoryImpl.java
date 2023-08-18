@@ -32,7 +32,6 @@ public class HotelRepositoryImpl implements HotelRepository {
     public Hotel findHotelById(Long id) {
 
         Session session = HibernateUtils.getSessionFactory().openSession();
-
         return session.get(Hotel.class, id);
 
     }

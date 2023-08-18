@@ -19,13 +19,13 @@ public class GuestRepositoryImpl implements GuestRepository {
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
 
-            Address address = new Address();
-            address.setStreet(guest.getAddress().getStreet());
-            address.setCity(guest.getAddress().getCity());
-            address.setCountry(guest.getAddress().getCountry());
-            address.setZipCode(guest.getAddress().getZipCode());
-
-            guest.setAddress(address);
+//            Address address = new Address();
+//            address.setStreet(guest.getAddress().getStreet());
+//            address.setCity(guest.getAddress().getCity());
+//            address.setCountry(guest.getAddress().getCountry());
+//            address.setZipCode(guest.getAddress().getZipCode());
+//
+//            guest.setAddress(address);
             session.persist(guest);
             transaction.commit();
             HibernateUtils.closeSession(session);
@@ -52,8 +52,8 @@ public class GuestRepositoryImpl implements GuestRepository {
         CriteriaQuery<Guest> query = builder.createQuery(Guest.class); //Sonuçlar guest data type inde olacak
         Root<Guest> root = query.from(Guest.class); //root isminde kök oluşturuldu
         query.select(root).where(builder.equal(root.get("id"), guestId)); //sorgu seçimi ve filtreleme
-
-        return session.createQuery(query).uniqueResult();
+        Guest guest = session.createQuery(query).uniqueResult();
+        return guest;
     }
 
     //Step 52c write deleteguestbyıd codes
@@ -81,7 +81,7 @@ public class GuestRepositoryImpl implements GuestRepository {
 
     //Step 53c write findAllGuest codes
     @Override
-    public List <Guest> findAllGuest() {
+    public List<Guest> findAllGuest() {
 
         Session session = HibernateUtils.getSessionFactory().openSession();
         String hql = "FROM Guest";

@@ -2,8 +2,8 @@ package com.tpe.domain;
 
 public class Course {
 
-    private String name;
 
+    private String name;
     public String getName() {
         return name;
     }
