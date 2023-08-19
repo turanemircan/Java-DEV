@@ -12,13 +12,13 @@
         <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <spring.version>6.0.9</spring.version>
+        <spring.version>5.3.23</spring.version>
         <hibernate.version>5.6.10.Final</hibernate.version>
         <hibernate.validator>6.2.3.Final</hibernate.validator>
-        <postgresql.connector.version>42.3.8</postgresql.connector.version>
-        <servlets.version>6.0.0</servlets.version>
-        <jsp.version>3.1.1</jsp.version>
-        <jstl.version>3.0.0</jstl.version>
+        <postgresql.connector.version>42.3.6</postgresql.connector.version>
+        <servlets.version>4.0.1</servlets.version>
+        <jsp.version>2.3.1</jsp.version>
+        <jstl.version>1.2.1</jstl.version>
         <logback.version>1.3.0</logback.version>
         <taglib.version>1.1.2</taglib.version>
         <jackson.version>2.13.3</jackson.version>
@@ -62,24 +62,23 @@
 
         <!-- Servlet Dependency -->
         <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
             <version>${servlets.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>jakarta.servlet.jsp</groupId>
-            <artifactId>jakarta.servlet.jsp-api</artifactId>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>javax.servlet.jsp-api</artifactId>
             <version>${jsp.version}</version>
             <scope>provided</scope>
         </dependency>
 
-
         <!-- Tag Dependency -->
         <dependency>
-            <groupId>jakarta.servlet.jsp.jstl</groupId>
-            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>javax.servlet.jsp.jstl-api</artifactId>
             <version>${jstl.version}</version>
         </dependency>
 
@@ -88,6 +87,7 @@
             <artifactId>standard</artifactId>
             <version>${taglib.version}</version>
         </dependency>
+
 
 
     </dependencies>
