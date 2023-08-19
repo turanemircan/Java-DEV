@@ -27,6 +27,7 @@
 			<c:forEach items="${studentList}" var="student" varStatus="status">
 
 				<!-- create an "update" link with Student id -->
+
 				<c:url var="updateLink" value="/students/update">
 					<c:param name="id" value="${student.id}" />
 				</c:url>
