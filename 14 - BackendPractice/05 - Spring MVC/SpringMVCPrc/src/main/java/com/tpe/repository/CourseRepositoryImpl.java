@@ -27,9 +27,7 @@ public class CourseRepositoryImpl implements CourseRepository {
     @Override
     public List<Course> getAll() {
         Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
         List<Course> courseList = session.createQuery("FROM Course", Course.class).getResultList();
-        tx.commit();
         session.close();
         return courseList;
     }
@@ -37,12 +35,10 @@ public class CourseRepositoryImpl implements CourseRepository {
     @Override
     public Optional<Course> findById(Long id) {
         Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
         Course course = session.get(Course.class, id);
         Optional<Course> optCourse = Optional.ofNullable(course);//ofNullable course ı sarmalar
         //eğer null değer alırsa exception fırlatmaz null yerine boş bir optional döner
 
-        tx.commit();
         session.close();
         return optCourse;
     }
