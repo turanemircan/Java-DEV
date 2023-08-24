@@ -15,7 +15,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor//param const
 @NoArgsConstructor//default const
-public class Customer {
+public class Customer {//one
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +38,7 @@ public class Customer {
     private String phone;
 
     @OneToMany(mappedBy = "customer",cascade = CascadeType.REMOVE)
-    private Set<OrderItem> orders=new HashSet<>();
+    private Set<OrderItem> orders=new HashSet<>();//many
 
 
 

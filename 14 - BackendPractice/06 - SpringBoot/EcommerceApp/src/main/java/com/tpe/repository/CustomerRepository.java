@@ -1,4 +1,12 @@
 package com.tpe.repository;
 
-public interface CustomerRepository {
+import com.tpe.domain.Customer;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository//optional
+public interface CustomerRepository extends JpaRepository<Customer,Long> {
+
+
+    boolean existsByEmail(String email);
 }
