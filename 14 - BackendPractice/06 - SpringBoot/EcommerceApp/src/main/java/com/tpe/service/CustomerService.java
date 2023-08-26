@@ -6,6 +6,8 @@ import com.tpe.exception.ConflictException;
 import com.tpe.exception.ResourceNotFoundException;
 import com.tpe.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,4 +58,34 @@ public class CustomerService {
        // customerRepository.deleteById(id);
     }
 
+    //20-b
+    public void updateCustomerById(Long id, CustomerDTO customerDto) {//email:aaa@bbbb.com
+
+        Customer customer=getCustomerById(id);
+        //email tabloda var mı
+        boolean isExists=customerRepository.existsByEmail(customerDto.getEmail());
+
+        if (isExists && !customerDto.getEmail().equals(customer.getEmail())){
+            throw new ConflictException("Email already exists in use :"+customerDto.getEmail());
+        }
+
+        customer.setName(customerDto.getName());
+        customer.setLastName(customerDto.getLastName());
+        customer.setPhone(customerDto.getPhone());
+        customer.setEmail(customer.getEmail());//tabloda başka bir customerın emaili:aaa@bbbb.com
+        customerRepository.save(customer);
+    }
+
+    //21-b
+    public Page<Customer> getAllCustomerByPage(Pageable pageable){
+
+        return customerRepository.findAll(pageable);
+
+    }
+
+     //22-b
+    public List<Customer> getCustomersByName(String name) {
+
+        return  customerRepository.findByName(name); //select * from Customer where name="name"
+    }
 }
