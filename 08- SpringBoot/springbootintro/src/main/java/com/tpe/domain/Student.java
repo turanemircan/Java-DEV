@@ -9,6 +9,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -36,7 +38,7 @@ public class Student {
     @Column(nullable = false, length = 25)
     private /*final*/ String lastName;
 
-    private /*final */Integer grade;
+    private /*final */Integer grade; // sgrade
 
     @Column(nullable = false, length = 25, unique = true)
     @Email(message = "Provide valid email")
@@ -47,6 +49,9 @@ public class Student {
     @Setter(AccessLevel.NONE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy HH:mm:ss", timezone = "Turkey")
     private LocalDateTime createDate = LocalDateTime.now();
+
+    @OneToMany(mappedBy = "student")
+    private List<Book> books = new ArrayList<>();
 
 
 

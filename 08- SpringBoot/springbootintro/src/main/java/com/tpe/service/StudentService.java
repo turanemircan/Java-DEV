@@ -87,7 +87,7 @@ public class StudentService {
     // Not: JPQL **********************************************************************
     public List<Student> findAllEqualsGrade(Integer grade) {
 
-        return studentRepository.findAllEqualsGrade(grade);
+        return studentRepository.findAllEqualsGrade(grade); // findByGrade
     }
 
     // Not: Db den direk DTO olarak verileri alabilir miyim
