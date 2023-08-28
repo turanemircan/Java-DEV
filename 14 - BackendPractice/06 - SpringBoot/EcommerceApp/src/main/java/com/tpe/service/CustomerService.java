@@ -2,6 +2,7 @@ package com.tpe.service;
 
 import com.tpe.domain.Customer;
 import com.tpe.dto.CustomerDTO;
+import com.tpe.dto.OrderDTO;
 import com.tpe.exception.ConflictException;
 import com.tpe.exception.ResourceNotFoundException;
 import com.tpe.repository.CustomerRepository;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 //  5-CustomerService Class
 @Service
@@ -87,5 +90,31 @@ public class CustomerService {
     public List<Customer> getCustomersByName(String name) {
 
         return  customerRepository.findByName(name); //select * from Customer where name="name"
+    }
+
+
+    //23-b
+    public List<Customer> getAllCustomerByFullName(String name, String lastName) {
+        return customerRepository.findByNameAndLastName(name,lastName);
+        //select * from Customer where name="name" and lastName="lastName"
+    }
+
+    //24-b
+    public List<Customer> getAllCustomerByNameLike(String word) {
+
+       return customerRepository.findByNameLikeWord(word);
+
+      //  return customerRepository.findByNameContaining(word); (JPQL kullanmadan)
+    }
+
+    //25-c
+    public Set<OrderDTO> getAllOrderOfCustomer(Long id) {
+
+        Set<OrderDTO> orderDTOS=  getCustomerById(id).getOrders().stream().
+                map(t->new OrderDTO(t.getQuantity(),t.getTotalPrice(),t.getProduct())).
+                collect(Collectors.toSet());
+
+        return orderDTOS;
+
     }
 }

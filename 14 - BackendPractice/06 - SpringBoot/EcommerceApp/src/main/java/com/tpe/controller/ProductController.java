@@ -4,6 +4,10 @@ import com.tpe.domain.Product;
 import com.tpe.dto.ProductDTO;
 import com.tpe.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +51,17 @@ public class ProductController {
     public ResponseEntity<ProductDTO> getProductById(@PathVariable("id") Long id){
         ProductDTO productDto=productService.getProductDtoById(id);
         return ResponseEntity.ok(productDto);
+    }
+
+    //n00 26-a
+    @GetMapping("/page")
+    public ResponseEntity<Page<Product>> getAllProductsByPage(@RequestParam(required = false,value = "page",defaultValue ="0" ) int page,//hangi sayfa
+                                                              @RequestParam("size") int size,//her sayfada kaç adet
+                                                              @RequestParam("sort") String prop,//sıralama fieldı
+                                                              @RequestParam("direction") Sort.Direction direction){//ASC,DESC
+        Pageable pageable= PageRequest.of(page,size,Sort.by(direction,prop));
+        Page<Product> productsPage=productService.getAllProductByPage(pageable);
+        return ResponseEntity.ok(productsPage);
     }
 
 

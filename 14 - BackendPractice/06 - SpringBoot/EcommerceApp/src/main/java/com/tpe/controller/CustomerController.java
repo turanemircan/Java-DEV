@@ -3,7 +3,9 @@ package com.tpe.controller;
 //4-CustomerController Class
 
 import com.tpe.domain.Customer;
+import com.tpe.domain.OrderItem;
 import com.tpe.dto.CustomerDTO;
+import com.tpe.dto.OrderDTO;
 import com.tpe.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @RestController//rest api için controller
 @RequestMapping("/customers")//http://localhost:8080/customers ve http://localhost:8080/customers/...
@@ -102,24 +105,42 @@ public class CustomerController {
 
     //23-fullname ile customer getirme-> http://localhost:8080/customers/fullquery?
     //name=Jack&lastName=Sparrow
-    //TODO:ÖDEV-->JPQL kullanmadan
+    @GetMapping("/fullquery")
+    public ResponseEntity<List<Customer>> getAllCustomerByFullName(@RequestParam("name") String name,
+                                                                   @RequestParam("lastName") String lastName){
+        List<Customer> customers=customerService.getAllCustomerByFullName(name,lastName);
+        return ResponseEntity.ok(customers);
+    }
 
 
 
-    //24-İsmi ... içeren customerlar -> http://localhost:8080/customers/jpql?name=Ja
+    //24-a-İsmi ... içeren customerlar -> http://localhost:8080/customers/jpql?name=Ja (JPQL)
+    @GetMapping("/jpql")
+    public ResponseEntity<List<Customer>> getAllCustomerByNameLike(@RequestParam("name") String word){
 
-
-    //-Requestle gelen "harf dizisi" name veya lastname inde geçen customerları döndür.
-    //-> http://localhost:8080/customers/search?word=pa
+        List<Customer> customerList=customerService.getAllCustomerByNameLike(word);
+        return ResponseEntity.ok(customerList);
+    }
 
 
     //25-Idsi verilen müşterinin tüm siparişlerini getirme -> http://localhost:8080/customers/allorder/1
+    //25-b: OrderDTO
+    @GetMapping("/allorder/{id}")
+    public ResponseEntity<Set<OrderDTO>> getAllOrderByCustomer(@PathVariable Long id){
+
+     // Set<OrderItem> orders=customerService.getCustomerById(id).getOrders();
+
+        Set<OrderDTO> orderDTOS=customerService.getAllOrderOfCustomer(id);
+
+        return ResponseEntity.ok(orderDTOS);
+    }
 
 
 
 
 
-
+    //ÖDEV-Requestle gelen "harf dizisi" name veya lastname inde geçen customerları döndür. (JPQL)
+    //-> http://localhost:8080/customers/search?word=pa
 
 
 
