@@ -40,7 +40,7 @@ public class OrderService {
             orderItem.setProduct(product);
             orderItem.setQuantity(quantity);
         }
-        //countTotalPrice();
+        //countTotalPrice();-->preUpdate , prePersist kullanıldığı için bu satıra gerek yok
         orderRepository.save(orderItem);
 
     }
@@ -62,11 +62,26 @@ public class OrderService {
         return orderDTO;
     }
 
+    //30-b
+    public void updateQuantity(Long id, Integer quantity) {
+          if (quantity==0){
+              deleteOrderById(id);
+          }else {
+              OrderItem order=getOrderById(id);
+              order.setQuantity(quantity);
+              //order.countTotalPrice();-->PreUpdate
+              orderRepository.save(order);//update
+          }
+    }
+
+
     //31-b
     public void deleteOrderById(Long id) {
         OrderItem order=getOrderById(id);
         orderRepository.delete(order);
     }
+
+
 
 
 }
