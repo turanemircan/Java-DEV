@@ -23,8 +23,8 @@ public interface CustomerRepository extends JpaRepository<Customer,Long> {
     //select * from Customer where name="name" and lastName="lastName"
 
    //24-c-JPQL
-    @Query("FROM Customer c WHERE c.name ILIKE %:pWord%")
-    //@Query(value = "SELECT * FROM Customer c WHERE c.name LIKE %:pWord%",nativeQuery = true)-->SQL
+   // @Query("FROM Customer c WHERE c.name LIKE %:pWord%")
+    @Query(value = "SELECT * FROM Customer c WHERE c.name ILIKE %:pWord%",nativeQuery = true)//-->SQL
     List<Customer> findByNameLikeWord(@Param("pWord") String word);
 
 
