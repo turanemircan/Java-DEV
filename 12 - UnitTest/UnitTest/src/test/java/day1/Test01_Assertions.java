@@ -32,7 +32,7 @@ public class Test01_Assertions {
     public void testUpperCase(){
 
         String str="junıt";
-        String beklenen="JUNI";
+        String beklenen="JUNIT";
         String beklenmeyen="Junıt";
         String anlik=str.toUpperCase();
 

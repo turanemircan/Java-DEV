@@ -35,11 +35,11 @@ public class Test03_BeforeAfterEach {
         //String str="";
 
         String[] anlikDizi=str.split(" ");
-        String[] bekleneDizi= {"Junit","ile", "çalışmak", "harika"};
+        String[] beklenenDizi= {"Junit","ile", "çalışmak", "harika"};
 
         System.out.println(info.getDisplayName()+" çalıştı");
 
-       assertArrayEquals(bekleneDizi,anlikDizi);
+       assertArrayEquals(beklenenDizi,anlikDizi);
 
     }
 
