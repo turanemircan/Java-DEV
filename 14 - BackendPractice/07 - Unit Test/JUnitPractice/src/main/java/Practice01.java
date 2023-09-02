@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Practice01 {
     public boolean isPalindrom(String word) {
         String reverse = "";
@@ -24,6 +27,17 @@ public class Practice01 {
         double c=Math.sqrt(a*a+b*b);
         return  c;
     }
-
+    public int findNumber(int number){
+        List<Integer> list=new ArrayList<>();
+        for(int i=1;i<1000000;i++){
+            list.add(i);
+        }
+        for(int i:list){
+            if(i==number){
+                return i;
+            }
+        }
+        return 0;
+    }
 
 }
