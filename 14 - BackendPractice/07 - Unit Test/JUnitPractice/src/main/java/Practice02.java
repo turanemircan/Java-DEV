@@ -19,5 +19,13 @@ public class Practice02 {
     public int sizeOfDevs(){
         return devList.size();
     }
-
+    public String findByName(String name) {
+        //name bilgisinin unique olduğunu kabul ediyoruz
+        for (String dev : devList) {
+            if (dev == name) {
+                return name;
+            }
+        }
+        return null;
+    }
 }
