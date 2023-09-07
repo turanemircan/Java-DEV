@@ -587,5 +587,97 @@ begin
 end $$;
 
 
+-- ********************************************************	
+--  ********************* FUNCTION ***********************
+-- ********************************************************
+
+--syntax
+create [or replace] function function_name(param_list)--mevcut fonksiyon varsa başlangıcı create or replace şeklinde olacak
+returns return_type --dönen data tipi yazılır
+language plpgsql   --kullanılan prosedurel dil pl-java,pl-pyton (java piyasayı domine eden bir dil değil)
+as
+$$
+declare
+--değişken varsa
+begin
+--logic
+end $$;
+
+
+-- Task : parametre olarak girilen iki sayinin toplamini veren sayitoplama adinda fonksiyon yazalim
+
+create function sayitoplama(sayi1 int,sayi2 int)
+returns integer
+language plpgsql
+as
+$$
+declare
+	sonuc integer;
+begin
+	sonuc:=sayi1+sayi2;
+return sonuc;
+end $$;
+
+select sayitoplama(3,5);
+
+--Task fibonacci sayı dizisinde n. terimi bulan fonksiyon oluşturunuz
+create function fibonacciBul(n int)
+returns integer
+language plpgsql
+as
+$$
+
+declare
+	counter integer:=0;
+	i integer:=0;
+	j integer:=1;
+	fib integer:=0;
+	
+begin
+	if n<1 then
+		fib:=0;
+	end if;
+	loop 
+	exit when counter=n;
+	counter=counter+1;
+	select j,i+j into i,j;  -- seçim(0,1)->(1,1)/2.işlem de seçim(1,1)->(1,2)/3.işlem(1,2)->(2,3)
+	end loop;
+	fib:=i;
+	return fib;
+		
+end $$;
+
+select fibonaccibul(8);
+
+-- Film tablomuzdaki filmlerin sayisini getiren bir fonksiyon yazalim
+create function get_film_count(len_from int,len_to int)
+returns int
+language plpgsql
+as
+
+$$
+declare
+	film_count integer;
+begin
+	select count(*)
+	from film
+	into film_count
+	where length between len_from and len_to;
+	
+	return film_count;
+
+end $$;
+
+select get_film_count(40,120);
+
+
+
+
+
+
+
+
+
+
 
 
