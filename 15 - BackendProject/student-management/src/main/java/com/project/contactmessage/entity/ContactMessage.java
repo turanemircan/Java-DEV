@@ -30,7 +30,7 @@ public class ContactMessage {
     private String name;
 
     @NotNull
-    @Email
+    @Email(message = "please enter valid email")
     private String email;
 
     @NotNull
