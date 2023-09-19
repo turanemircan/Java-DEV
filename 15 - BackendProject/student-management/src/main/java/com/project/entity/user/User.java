@@ -66,6 +66,7 @@ public class User {
 
     private Long advisorTeacherId; // bu field student lar icin eklendi
 
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @OneToOne
