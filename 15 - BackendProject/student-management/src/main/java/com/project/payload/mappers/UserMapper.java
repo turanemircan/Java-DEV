@@ -1,6 +1,8 @@
 package com.project.payload.mappers;
 
 import com.project.entity.user.User;
+import com.project.payload.request.abstracts.BaseUserRequest;
+import com.project.payload.request.user.UserRequest;
 import com.project.payload.response.user.UserResponse;
 import org.springframework.stereotype.Component;
 
@@ -22,4 +24,24 @@ public class UserMapper {
                 .userRole(user.getUserRole().getRoleType().name())
                 .build();
     }
+
+    public User mapUserRequestToUser(BaseUserRequest userRequest){
+
+        return User.builder()
+                .username(userRequest.getUsername())
+                .name(userRequest.getName())
+                .surname(userRequest.getSurname())
+                .password(userRequest.getPassword())
+                .ssn(userRequest.getSsn())
+                .birthDay(userRequest.getBirthDay())
+                .birthPlace(userRequest.getBirthPlace())
+                .phoneNumber(userRequest.getPhoneNumber())
+                .gender(userRequest.getGender())
+                .email(userRequest.getEmail())
+                .built_in(userRequest.getBuiltIn())
+                .build();
+
+    }
+
+
 }

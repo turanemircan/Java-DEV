@@ -47,7 +47,7 @@ public class User {
     private String password;
 
     @Column(unique = true)
-    private String phoneNumber;
+    private String phoneNumber; // existsByPhoneNumber
 
     @Column(unique = true)
     private String email;
