@@ -17,9 +17,7 @@ import com.project.service.helper.PageableHelper;
 import com.project.service.validator.UniquePropertyValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -140,6 +138,9 @@ public class UserService {
         // !!! id kontrol
         User user = isUserExist(userId);
         // TODO : built_in kontrolu yapilacak ( ODEV )
+        if(Boolean.TRUE.equals(user.getBuilt_in())) {
+            throw new BadRequestException(ErrorMessages.NOT_PERMITTED_METHOD_MESSAGE);
+        }
         // !!! unique kontrolu
         uniquePropertyValidator.checkUniqueProperties(user,userRequest);
 
@@ -147,6 +148,8 @@ public class UserService {
         User updatedUser = userMapper.mapUserRequestToUpdatedUser(userRequest, userId);
         // !!! Password Encode
         updatedUser.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+
+        updatedUser.setUserRole(user.getUserRole());
 
         User savedUser = userRepository.save(updatedUser);
 
@@ -171,6 +174,9 @@ public class UserService {
         User user = userRepository.findByUsernameEquals(userName);
 
         // TODO : built_in kontrolu ( ODEV )
+        if(Boolean.TRUE.equals(user.getBuilt_in())) {
+            throw new BadRequestException(ErrorMessages.NOT_PERMITTED_METHOD_MESSAGE);
+        }
 
         // !!! unique kontrolu
         uniquePropertyValidator.checkUniqueProperties(user, userRequest );
@@ -183,7 +189,7 @@ public class UserService {
         user.setName(userRequest.getName());
         user.setSurname(userRequest.getSurname());
         user.setSsn(userRequest.getSsn());
-        // TODO : eksik field kontrolu
+        user.setUsername(userRequest.getUsername());
 
         userRepository.save(user);
 
