@@ -83,7 +83,9 @@ public class DateTimeValidator {
                     .anyMatch(lessonProgram -> lessonProgram.getDay().name().equals(requestLessonProgramDay)
                             && (lessonProgram.getStartTime().equals(requestStart)
                             || (lessonProgram.getStartTime().isBefore(requestStart) && lessonProgram.getEndTime().isAfter(requestStart))
-                            || (lessonProgram.getStartTime().isBefore(requestStop) && lessonProgram.getEndTime().isAfter(requestStop))))
+                            || (lessonProgram.getStartTime().isBefore(requestStop) && lessonProgram.getEndTime().isAfter(requestStop))
+                            || (lessonProgram.getStartTime().isAfter(requestStart) && lessonProgram.getEndTime().isBefore(requestStop))))
+
             ) {
                 throw new ConflictException(ErrorMessages.LESSON_PROGRAM_ALREADY_EXIST);
             }
