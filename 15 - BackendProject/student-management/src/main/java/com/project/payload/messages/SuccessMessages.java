@@ -22,4 +22,8 @@ public class SuccessMessages {
     public static final String EDUCATION_TERM_SAVE = "Education Term is Saved";
     public static final String EDUCATION_TERM_DELETE = "Education term is Deleted Successfully";
     public static final String EDUCATION_TERM_UPDATE = "Education term is Updated Successfully";
+
+    public static final String LESSON_SAVE = "Lesson is Saved";
+    public static final String LESSON_DELETE = "Lesson is Deleted Successfully";
+    public static final String LESSON_FOUND = "Lesson is Found Successfully";
 }
