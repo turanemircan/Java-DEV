@@ -14,6 +14,7 @@ public class SuccessMessages {
     public static final String ADVISOR_TEACHER_SAVE = "Advisor Teacher is Saved";
     public static final String ADVISOR_TEACHER_DELETE = "Advisor Teacher is Deleted";
     public static final String TEACHER_UPDATE = "Teacher is Updated Successfully";
+    public static final String LESSON_PROGRAM_ADD_TO_TEACHER = "Lesson Programs added to Teacher";
 
     public static final String STUDENT_SAVE = "Student is Saved";
     public static final String STUDENT_UPDATE = "Student is Updated Successfully";
@@ -29,4 +30,7 @@ public class SuccessMessages {
 
     public static final String LESSON_PROGRAM_SAVE = "Lesson Program is Saved";
     public static final String LESSON_PROGRAM_DELETE = "Lesson Program is Deleted Successfully";
+
+    public static final String STUDENT_INFO_SAVE = "Student Info is Saved";
+    public static final String STUDENT_INFO_DELETE = "Student Info is Deleted Successfully";
 }

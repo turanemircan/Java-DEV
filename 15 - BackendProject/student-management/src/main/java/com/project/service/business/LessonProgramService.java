@@ -132,7 +132,7 @@ public class LessonProgramService {
 
     }
 
-    // Not : getLessonProgramByTeacher() ********
+    // Not : getLessonProgramByTacherOrStudent() ********
     public Set<LessonProgramResponse> getAllLessonProgramByUser(HttpServletRequest httpServletRequest) {
 
         String userName = (String) httpServletRequest.getAttribute("username");
