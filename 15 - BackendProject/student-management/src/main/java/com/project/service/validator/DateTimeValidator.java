@@ -61,8 +61,6 @@ public class DateTimeValidator {
                         throw new ConflictException(ErrorMessages.LESSON_PROGRAM_ALREADY_EXIST);
                     }
                 }
-                // TODO : tamamen ortada olma durumu kontrolu...
-
                 // !!! Bitis saatine gore kontrol
                 for (LocalTime stopTime: existingLessonProgramStopTimes) {
                     if(lessonProgram.getStartTime().isBefore(stopTime) && lessonProgram.getEndTime().isAfter(stopTime)) {
