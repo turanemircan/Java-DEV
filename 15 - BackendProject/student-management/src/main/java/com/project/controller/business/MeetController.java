@@ -22,11 +22,11 @@ public class MeetController {
     private final MeetService meetService;
 
     // Not : Save() ************************
-    @PreAuthorize("hasAnyAuthority('TEACHER')")
+/*    @PreAuthorize("hasAnyAuthority('TEACHER')")
     @PostMapping("/save")
     public ResponseMessage<MeetResponse> saveMeet(HttpServletRequest httpServletRequest,
                                                   @RequestBody @Valid MeetRequest meetRequest){
         return meetService.saveMeet(httpServletRequest, meetRequest);
-    }
+    }*/
 
 }

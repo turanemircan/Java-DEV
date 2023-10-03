@@ -3,6 +3,8 @@ package com.project.service.business;
 import com.project.entity.business.EducationTerm;
 import com.project.entity.business.Lesson;
 import com.project.entity.business.LessonProgram;
+import com.project.entity.enums.RoleType;
+import com.project.entity.user.User;
 import com.project.exception.ResourceNotFoundException;
 import com.project.payload.mappers.LessonProgramMapper;
 import com.project.payload.messages.ErrorMessages;
@@ -12,6 +14,7 @@ import com.project.payload.response.business.LessonProgramResponse;
 import com.project.payload.response.business.ResponseMessage;
 import com.project.repository.business.LessonProgramRepository;
 import com.project.service.helper.PageableHelper;
+import com.project.service.user.UserService;
 import com.project.service.validator.DateTimeValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -34,6 +37,7 @@ public class LessonProgramService {
     private final DateTimeValidator dateTimeValidator;
     private final LessonProgramMapper lessonProgramMapper;
     private final PageableHelper pageableHelper;
+    private final UserService userService;
 
 
 
@@ -135,6 +139,7 @@ public class LessonProgramService {
     // Not : getLessonProgramByTacherOrStudent() ********
     public Set<LessonProgramResponse> getAllLessonProgramByUser(HttpServletRequest httpServletRequest) {
 
+
         String userName = (String) httpServletRequest.getAttribute("username");
 
         return lessonProgramRepository.getLessonProgramByUsersUsername(userName)
@@ -142,5 +147,31 @@ public class LessonProgramService {
                 .map(lessonProgramMapper::mapLessonProgramToLessonProgramResponse)
                 .collect(Collectors.toSet());
 
+    }
+
+    // Not: (ODEV) getLessonProgramsByTeacherId() ******
+    public Set<LessonProgramResponse> getByTeacherId(Long teacherId) {
+        User teacher = userService.isUserExist(teacherId);
+		if(!teacher.getUserRole().getRoleType().equals(RoleType.TEACHER)){
+			throw new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_TEACHER_MESSAGE,teacherId));
+		}
+
+        return lessonProgramRepository.findByUsers_IdEquals(teacherId)
+                .stream()
+                .map(lessonProgramMapper::mapLessonProgramToLessonProgramResponse)
+                .collect(Collectors.toSet());
+    }
+
+    // Not : ( ODEV ) getLessonProgramsByStudentId() ********
+    public Set<LessonProgramResponse> getByStudentId(Long studentId) {
+        User student = userService.isUserExist(studentId);
+		if(!student.getUserRole().getRoleType().equals(RoleType.STUDENT)){
+			throw new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_STUDENT_MESSAGE,studentId));
+		}
+
+        return lessonProgramRepository.findByUsers_IdEquals(studentId)
+                .stream()
+                .map(lessonProgramMapper::mapLessonProgramToLessonProgramResponse)
+                .collect(Collectors.toSet());
     }
 }
