@@ -18,6 +18,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 public class MeetRequest {
+
     @NotNull(message = "Please enter description")
     @Size(min=2, max= 250, message = "Description should be at least 2 chars")
     @Pattern(regexp = "\\A(?!\\s*\\Z).+" ,message="Description must consist of the characters .")
