@@ -56,6 +56,7 @@ public class StudentInfoService {
             throw new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_STUDENT_MESSAGE,
                     studentInfoRequest.getStudentId()));
         }
+        // TODO : reguestten gelen STudent bu dersi aliyormu koontrolu ??
         User teacher = teacherService.getTeacherByUsername(teacherUsername);
         Lesson lesson = lessonService.isLessonExistById(studentInfoRequest.getLessonId());
         EducationTerm educationTerm = educationTermService.getEducationTermById(studentInfoRequest.getEducationTermId());
@@ -121,7 +122,7 @@ public class StudentInfoService {
     // Not : Delete() **********************************
     public ResponseMessage deleteStudentInfo(Long studentInfoId) {
         isStudentInfoExistById(studentInfoId);
-
+        // TODO : Teacher sadeve kendi studentInfosunu silebilsin
         studentInfoRepository.deleteById(studentInfoId);
 
         return ResponseMessage.builder()

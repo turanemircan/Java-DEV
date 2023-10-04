@@ -69,6 +69,7 @@ public class LessonService {
 
     // Not: getByName() *********************************
     public ResponseMessage<LessonResponse> getLessonByLessonName(String lessonName) {
+        // TODO : ignoreCase eklenecek
         if(lessonRepository.getLessonByLessonName(lessonName).isPresent()){
             return ResponseMessage.<LessonResponse>builder()
                     .message(SuccessMessages.LESSON_FOUND)
