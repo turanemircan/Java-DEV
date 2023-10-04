@@ -20,7 +20,7 @@ public class EducationTermController {
     private final EducationTermService educationTermService;
 
     // Not: save() ****************************************
-    @PostMapping("/save")
+    @PostMapping("/save") // http://localhost:8080/educationTerms/save
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER')")
     public ResponseMessage<EducationTermResponse> saveEducationTerm(@RequestBody @Valid EducationTermRequest educationTermRequest){
 
@@ -29,14 +29,14 @@ public class EducationTermController {
 
     // Not: getById() **************************************
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER','TEACHER')")
-    @GetMapping("/{id}")
+    @GetMapping("/{id}")// http://localhost:8080/educationTerms/1
     public EducationTermResponse getEducationTermById(@PathVariable Long id){
         return educationTermService.getEducationTermResponseById(id);
     }
 
     // Not: getAll() **************************************
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER','TEACHER')")
-    @GetMapping("/getAll")
+    @GetMapping("/getAll")// http://localhost:8080/educationTerms/getAll
     public List<EducationTermResponse> getAllEducationTerms(){
         return educationTermService.getAllEducationTerms();
     }
@@ -44,7 +44,7 @@ public class EducationTermController {
 
     // Not: getAllWithPage() ******************************
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER','TEACHER')")
-    @GetMapping("/getAllEducationTermsByPage")
+    @GetMapping("/getAllEducationTermsByPage")// http://localhost:8080/educationTerms/getAllEducationTermsByPage
     public Page<EducationTermResponse>  getAllEducationTermsByPage(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size,
@@ -57,14 +57,14 @@ public class EducationTermController {
 
     // Not: deleteById() **********************************
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER')")
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}") // http://localhost:8080/educationTerms/delete/2
     public ResponseMessage<?> deleteEducationTermById(@PathVariable Long id){
         return educationTermService.deleteEducationTermById(id);
     }
 
     // Not: updateById() **********************************
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER')")
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/{id}")// http://localhost:8080/educationTerms/update/2
     public ResponseMessage<EducationTermResponse> updateEducationTerm(@PathVariable Long id,
                                                                       @RequestBody @Valid EducationTermRequest educationTermRequest){
         return educationTermService.updateEducationTerm(id, educationTermRequest);

@@ -31,7 +31,7 @@ public class StudentController {
     // Not: updateStudentForStudents() ********************
     // ogrencinin kendi bilgilerini guncelleme islemi
     @PreAuthorize("hasAnyAuthority('STUDENT')")
-    @PatchMapping("/update")
+    @PatchMapping("/update") // http://localhost:8080/student/update
     public ResponseEntity<String> updateStudent(@RequestBody @Valid StudentRequestWithoutPassword studentRequestWithoutPassword,
                                                 HttpServletRequest request){
         return studentService.updateStudent(studentRequestWithoutPassword, request);
@@ -40,7 +40,7 @@ public class StudentController {
     // Not: updateStudent() ******************************
     // yoneticilerin ogrenci bilgilerini guncelleme islemi
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER')")
-    @PutMapping("/update/{userId}")
+    @PutMapping("/update/{userId}")// http://localhost:8080/student/update/3
     public ResponseMessage<StudentResponse> updateStudentForManagers(@PathVariable Long userId,
                                                                      @RequestBody @Valid StudentRequest studentRequest) {
         return studentService.updateStudentForManagers(userId, studentRequest);
@@ -49,7 +49,7 @@ public class StudentController {
     // Not: addLessonProgramToStudentLessonsProgram() *********
     // !!! Student kendine lessonProgram ekliyor
     @PreAuthorize("hasAnyAuthority('STUDENT')")
-    @PostMapping("/addLessonProgramToStudent")
+    @PostMapping("/addLessonProgramToStudent") // http://localhost:8080/student/addLessonProgramToStudent
     public ResponseMessage<StudentResponse> addLessonProgram(HttpServletRequest request,
                                                              @RequestBody @Valid ChooseLessonProgramWithId chooseLessonProgramWithId){
        String userName = (String) request.getAttribute("username");
@@ -58,10 +58,9 @@ public class StudentController {
 
     // Not: ChangeActıveStatusOfStudent() *********************
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER')")
-    @PatchMapping("/changeStatus")
+    @PatchMapping("/changeStatus")// http://localhost:8080/student/changeStatus?id=1&status=false
     public ResponseMessage changeStatusOfStudent(@RequestParam Long id, @RequestParam boolean status){
         return studentService.changeStatusOfStudent(id,status);
     }
-
 
 }

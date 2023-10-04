@@ -50,28 +50,28 @@ public class StudentInfoService {
     // Not :  Save() ***********************************
     public ResponseMessage<StudentInfoResponse> saveStudentInfo(HttpServletRequest httpServletRequest,
                                                                 StudentInfoRequest studentInfoRequest) {
-       String teacherUsername = (String) httpServletRequest.getAttribute("username");
-       User student =  teacherService.isUserExist(studentInfoRequest.getStudentId());
-       if(!student.getUserRole().getRoleType().equals(RoleType.STUDENT)){
-           throw  new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_STUDENT_MESSAGE,
-                                                                    studentInfoRequest.getStudentId()));
-       }
-       User teacher = teacherService.getTeacherByUsername(teacherUsername);
-       Lesson lesson = lessonService.isLessonExistById(studentInfoRequest.getLessonId());
-       EducationTerm educationTerm = educationTermService.getEducationTermById(studentInfoRequest.getEducationTermId());
+        String teacherUsername = (String) httpServletRequest.getAttribute("username");
+        User student = teacherService.isUserExist(studentInfoRequest.getStudentId());
+        if (!student.getUserRole().getRoleType().equals(RoleType.STUDENT)) {
+            throw new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_STUDENT_MESSAGE,
+                    studentInfoRequest.getStudentId()));
+        }
+        User teacher = teacherService.getTeacherByUsername(teacherUsername);
+        Lesson lesson = lessonService.isLessonExistById(studentInfoRequest.getLessonId());
+        EducationTerm educationTerm = educationTermService.getEducationTermById(studentInfoRequest.getEducationTermId());
 
-       // !!! ayni ders icin duplicate kontrolu
+        // !!! ayni ders icin duplicate kontrolu
         checkSameLesson(studentInfoRequest.getStudentId(), lesson.getLessonName());
 
-       // !!! harf notu
+        // !!! harf notu
         Note note = checkLetterGrade(calculateExamAverage(studentInfoRequest.getMidtermExam(),
-                                                            studentInfoRequest.getFinalExam()));
+                studentInfoRequest.getFinalExam()));
 
         // !!! DTO --> POJO
         StudentInfo studentInfo = studentInfoMapper.mapStudentInfoRequestToStudentInfo(studentInfoRequest,
-                                                                    note,
-                                                                    calculateExamAverage(studentInfoRequest.getMidtermExam(),
-                                                                            studentInfoRequest.getFinalExam()));
+                note,
+                calculateExamAverage(studentInfoRequest.getMidtermExam(),
+                        studentInfoRequest.getFinalExam()));
         studentInfo.setStudent(student);
         studentInfo.setTeacher(teacher);
         studentInfo.setEducationTerm(educationTerm);
@@ -87,39 +87,40 @@ public class StudentInfoService {
 
     }
 
-    private void checkSameLesson(Long studentId, String lessonName){
+    private void checkSameLesson(Long studentId, String lessonName) {
         boolean isLessonDuplicationExist = studentInfoRepository.getAllByStudentId_Id(studentId)
-                                                .stream()
-                                                .anyMatch(e->e.getLesson().getLessonName().equalsIgnoreCase(lessonName));
-        if(isLessonDuplicationExist){
-            throw  new ConflictException(String.format(ErrorMessages.ALREADY_REGISTER_LESSON_MESSAGE, lessonName));
+                .stream()
+                .anyMatch(e -> e.getLesson().getLessonName().equalsIgnoreCase(lessonName));
+        if (isLessonDuplicationExist) {
+            throw new ConflictException(String.format(ErrorMessages.ALREADY_REGISTER_LESSON_MESSAGE, lessonName));
         }
     }
 
-    private Double calculateExamAverage(Double midtermExam, Double finalExam){
-        return ((midtermExam*midtermExamPercentage) + (finalExam*finalExamPercentage));
+    private Double calculateExamAverage(Double midtermExam, Double finalExam) {
+        return ((midtermExam * midtermExamPercentage) + (finalExam * finalExamPercentage));
     }
 
-    private Note checkLetterGrade(Double average){
-        if(average<50.0){
+    private Note checkLetterGrade(Double average) {
+        if (average < 50.0) {
             return Note.FF;
-        } else if (average<60) {
+        } else if (average < 60) {
             return Note.DD;
-        } else if (average<65) {
+        } else if (average < 65) {
             return Note.CC;
-        } else if (average<70) {
+        } else if (average < 70) {
             return Note.CB;
-        } else if (average<75) {
+        } else if (average < 75) {
             return Note.BB;
-        } else if (average<80) {
+        } else if (average < 80) {
             return Note.BA;
         } else {
             return Note.AA;
         }
     }
+
     // Not : Delete() **********************************
     public ResponseMessage deleteStudentInfo(Long studentInfoId) {
-        StudentInfo studentInfo = isStudentInfoExistById(studentInfoId);
+        isStudentInfoExistById(studentInfoId);
 
         studentInfoRepository.deleteById(studentInfoId);
 
@@ -127,13 +128,12 @@ public class StudentInfoService {
                 .message(SuccessMessages.STUDENT_INFO_DELETE)
                 .httpStatus(HttpStatus.OK)
                 .build();
-
     }
 
     public StudentInfo isStudentInfoExistById(Long id) {
         boolean isExist = studentInfoRepository.existsById(id);
-        if(!isExist){
-            throw  new ResourceNotFoundException(String.format(ErrorMessages.STUDENT_INFO_NOT_FOUND,id));
+        if (!isExist) {
+            throw new ResourceNotFoundException(String.format(ErrorMessages.STUDENT_INFO_NOT_FOUND, id));
         } else {
             return studentInfoRepository.findById(id).get();
         }
@@ -150,15 +150,27 @@ public class StudentInfoService {
     // Not: Update() ************************************
     public ResponseMessage<StudentInfoResponse> update(UpdateStudentInfoRequest studentInfoRequest, Long studentInfoId) {
 
-         Lesson lesson = lessonService.isLessonExistById(studentInfoRequest.getLessonId());
-         StudentInfo studentInfo = isStudentInfoExistById(studentInfoId);
-         EducationTerm educationTerm =educationTermService.getEducationTermById(studentInfoRequest.getEducationTermId());
-         // TODO : eger puan bilgileri hic degistirilmedi ise alttaki 2 satir gereksiz olacak
-         Double noteAverage = calculateExamAverage(studentInfoRequest.getMidtermExam(), studentInfoRequest.getFinalExam());
-         Note note = checkLetterGrade(noteAverage);
-         // !!! DTO --> POJO
+        Double noteAverage;
+        Note note;
+
+        Lesson lesson = lessonService.isLessonExistById(studentInfoRequest.getLessonId());
+        StudentInfo studentInfo = isStudentInfoExistById(studentInfoId);
+        EducationTerm educationTerm = educationTermService.getEducationTermById(studentInfoRequest.getEducationTermId());
+        // !!! eger puan bilgileri  degistirildi ise Alfabetik puan yeniden hesaplaniyor
+        if (
+                !(studentInfoRequest.getMidtermExam().equals(studentInfo.getMidtermExam())) ||
+                !(studentInfoRequest.getFinalExam().equals(studentInfo.getFinalExam()))
+        ) {
+            noteAverage = calculateExamAverage(studentInfoRequest.getMidtermExam(), studentInfoRequest.getFinalExam());
+            note = checkLetterGrade(noteAverage);
+        } else {
+            noteAverage = studentInfo.getExamAverage();
+            note = studentInfo.getLetterGrade();
+        }
+
+        // !!! DTO --> POJO
         StudentInfo studentInfoUpdate = studentInfoMapper.mapStudentInfoUpdateToStudentInfo(studentInfoRequest, studentInfoId
-                ,lesson,educationTerm,note,noteAverage);
+                , lesson, educationTerm, note, noteAverage);
         studentInfoUpdate.setStudent(studentInfo.getStudent());
         studentInfoUpdate.setTeacher(studentInfo.getTeacher());
 
@@ -173,34 +185,35 @@ public class StudentInfoService {
 
     // Not: getAllForTeacherByPage() **************************
     public Page<StudentInfoResponse> getAllForTeacher(HttpServletRequest httpServletRequest, int page, int size) {
-       Pageable pageable = pageableHelper.getPageableWithProperties(page, size);
-       String username = (String) httpServletRequest.getAttribute("username");
-       return  studentInfoRepository.findByTeacherId_UsernameEquals(username,pageable)
-               .map(studentInfoMapper::mapStudentInfoToStudentInfoResponse);
+        Pageable pageable = pageableHelper.getPageableWithProperties(page, size);
+        String username = (String) httpServletRequest.getAttribute("username");
+        return studentInfoRepository.findByTeacherId_UsernameEquals(username, pageable)
+                .map(studentInfoMapper::mapStudentInfoToStudentInfoResponse);
     }
+
     // Not: getAllForStudentByPage() **************************
     public Page<StudentInfoResponse> getAllForStudent(HttpServletRequest httpServletRequest, int page, int size) {
 
-       Pageable pageable = pageableHelper.getPageableWithProperties(page, size);
-       String username = (String) httpServletRequest.getAttribute("username");
-        return  studentInfoRepository.findByStudentId_UsernameEquals(username,pageable)
+        Pageable pageable = pageableHelper.getPageableWithProperties(page, size);
+        String username = (String) httpServletRequest.getAttribute("username");
+        return studentInfoRepository.findByStudentId_UsernameEquals(username, pageable)
                 .map(studentInfoMapper::mapStudentInfoToStudentInfoResponse);
     }
 
     // Not: getStudentInfoByStudentId() *****************
     public List<StudentInfoResponse> getStudentInfoByStudentId(Long studentId) {
-       User student = teacherService.isUserExist(studentId);
-       if(student.getUserRole().getRoleType()!=RoleType.STUDENT){
-           throw new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_STUDENT_MESSAGE, studentId));
-       }
-       if(!studentInfoRepository.existsByStudent_IdEquals(studentId)){
-           throw new ResourceNotFoundException(String.format(ErrorMessages.STUDENT_INFO_NOT_FOUND_BY_STUDENT_ID, studentId));
-       }
+        User student = teacherService.isUserExist(studentId);
+        if (student.getUserRole().getRoleType() != RoleType.STUDENT) {
+            throw new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_STUDENT_MESSAGE, studentId));
+        }
+        if (!studentInfoRepository.existsByStudent_IdEquals(studentId)) {
+            throw new ResourceNotFoundException(String.format(ErrorMessages.STUDENT_INFO_NOT_FOUND_BY_STUDENT_ID, studentId));
+        }
 
-       return studentInfoRepository.findByStudent_IdEquals(studentId)
-               .stream()
-               .map(studentInfoMapper::mapStudentInfoToStudentInfoResponse)
-               .collect(Collectors.toList());
+        return studentInfoRepository.findByStudent_IdEquals(studentId)
+                .stream()
+                .map(studentInfoMapper::mapStudentInfoToStudentInfoResponse)
+                .collect(Collectors.toList());
     }
 
     // Not: getStudentInfoById() ************************

@@ -41,7 +41,7 @@ public class TeacherController {
     // Not: GetAllStudentByAdvTeacherUserName() ********************
     // Bir Rehber ogretmenin kendi ogrencilerinin tmamini getiren method
 
-    @GetMapping("/getAllStudentByAdvisorUsername")
+    @GetMapping("/getAllStudentByAdvisorUsername") //http://localhost:8080/teacher/getAllStudentByAdvisorUsername
     @PreAuthorize("hasAnyAuthority('TEACHER')")
     public List<StudentResponse> getAllStudentByAdvisorUsername(HttpServletRequest request){
         String userName = request.getHeader("username");
@@ -50,7 +50,7 @@ public class TeacherController {
 
     // Not : AddLessonProgramToTeachersLessonProgram **************
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER')")
-    @PostMapping("/addLessonProgram")
+    @PostMapping("/addLessonProgram") //http://localhost:8080/teacher/addLessonProgram
     public ResponseMessage<TeacherResponse> chooseLesson(@RequestBody @Valid ChooseLessonTeacherRequest chooseLessonTeacherRequest){
         return teacherService.addLessonProgram(chooseLessonTeacherRequest);
     }
@@ -65,14 +65,14 @@ public class TeacherController {
 
     // Not : deleteAdvisorTeacherById() ********************************
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER')")
-    @DeleteMapping("/deleteAdvisorTeacherById/{id}")
+    @DeleteMapping("/deleteAdvisorTeacherById/{id}")// http://localhost:8080/teacher/deleteAdvisorTeacherById/4
     public ResponseMessage<UserResponse> deleteAdvisorTeacherById(@PathVariable Long id){
         return teacherService.deleteAdvisorTeacherById(id);
     }
 
     // Not : getAllAdvisorTeacher() ************************************
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER')")
-    @GetMapping("/getAllAdvisorTeacher")
+    @GetMapping("/getAllAdvisorTeacher")// http://localhost:8080/teacher/getAllAdvisorTeacher
     public List<UserResponse> getAllAdvisorTeacher() {
         return teacherService.getAllAdvisorTeacher();
     }
