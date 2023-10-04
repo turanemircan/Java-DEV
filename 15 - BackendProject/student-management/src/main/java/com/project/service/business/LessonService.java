@@ -102,7 +102,7 @@ public class LessonService {
         Lesson lesson = isLessonExistById(lessonId);
         // !!! requeste ders ismi degisti ise unique olmasi gerekiyor kontrolu
        if(
-               !(lesson.getLessonName().equals(lessonRequest.getLessonName())) &&
+               !(lesson.getLessonName().equalsIgnoreCase(lessonRequest.getLessonName())) &&
                (lessonRepository.existsByLessonName(lessonRequest.getLessonName())) // Derived Query
        ) {
            throw new ConflictException(

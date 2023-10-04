@@ -49,7 +49,8 @@ public class MeetController {
     // Not: delete() ***********************
     @PreAuthorize("hasAnyAuthority('TEACHER','ADMIN')")
     @DeleteMapping("/delete/{meetId}")
-    public ResponseMessage delete(@PathVariable Long meetId, HttpServletRequest httpServletRequest){
+    public ResponseMessage delete(@PathVariable Long meetId,
+                                  HttpServletRequest httpServletRequest){
         return meetService.delete(meetId, httpServletRequest);
     }
     // Not: Update() ************************

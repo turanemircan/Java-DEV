@@ -1,7 +1,5 @@
 package com.project.controller.user;
 
-import com.project.payload.request.abstracts.AbstractUserRequest;
-import com.project.payload.request.abstracts.BaseUserRequest;
 import com.project.payload.request.user.UserRequest;
 import com.project.payload.request.user.UserRequestWithoutPassword;
 import com.project.payload.response.abstracts.BaseUserResponse;
