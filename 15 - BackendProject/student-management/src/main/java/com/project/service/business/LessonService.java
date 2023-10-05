@@ -104,7 +104,7 @@ public class LessonService {
         // !!! requeste ders ismi degisti ise unique olmasi gerekiyor kontrolu
        if(
                !(lesson.getLessonName().equalsIgnoreCase(lessonRequest.getLessonName())) &&
-               (lessonRepository.existsByLessonName(lessonRequest.getLessonName())) // Derived Query
+               (lessonRepository.existsLessonByLessonNameEqualsIgnoreCase(lessonRequest.getLessonName())) // Derived Query
        ) {
            throw new ConflictException(
                    String.format(ErrorMessages.LESSON_ALREADY_EXIST_WITH_LESSON_NAME,lessonRequest.getLessonName()));
